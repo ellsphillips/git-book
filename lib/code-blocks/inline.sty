@@ -2,24 +2,26 @@
 \setlength{\charwidth}{1em}
 
 \newcommand*{\codeinline}[2][0]{%
+	\lineskiplimit=-\maxdimen
 	\pgfmathparse{#1}%
+	\edef\codeshrinkpadding{1pt}%
 	\edef\codebgtrim{\pgfmathresult}%
-	\hspace*{-0.5\charwidth}\tikz[baseline=(code.base)]{%
+	\relax\tikz[baseline=(code.base)]{%
 		\node[] (code) {%
 			\lstinline[%
 				backgroundcolor=\color{code-background},%
 				language=monokai-typescript,%
 				keepspaces=true,%
-				basicstyle=\normalsize\ttfamily\bfseries\color{white},%
+				basicstyle=\codefontsize\ttfamily\bfseries\color{white},%
 			]{#2}%
 		};%
 	%
 		\begin{pgfonlayer}{background}%
-			\node[anchor=south west] (code-mirror) at ([xshift=6pt]code.south west) {%
-				\normalsize\ttfamily\bfseries\color{white}#2%
+			\node[anchor=south west] (code-mirror) at ([xshift=0pt]code.south west) {%
+				\codefontsize\ttfamily\bfseries\color{white}#2%
 			};%
 		%
-			\fill[background-400]
+			\fill[background-400]%
 			(code-mirror.north west)%
 			rectangle%
 			(code-mirror.south east);%
@@ -30,9 +32,9 @@
 				rounded corners=2pt,%
 				inner sep=3pt,%
 			]%
-			([shift={(0pt, 0)}]code-mirror.north west)%
+			([shift={(\codeshrinkpadding, \codeshrinkpadding)}]code-mirror.south west)%
 			rectangle%
-			([shift={(-\codebgtrim\charwidth, 0)}]code-mirror.south east);%
+			([shift={(-\codebgtrim\charwidth-\codeshrinkpadding, -\codeshrinkpadding)}]code-mirror.north east);%
 		\end{pgfonlayer}%
-	}\hspace*{-0.25\charwidth}
+	}\relax%
 }
