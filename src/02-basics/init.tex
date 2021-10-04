@@ -85,6 +85,16 @@ If you recently switch out of a branch and forgot its name, you can use git chec
 
 
 
+\subsection{Switch}
+
+If you find yourself working on a branch and need to move your current untracked changes to another (new or existing) branch, then git switch is the perfect use case for when you just want to test something, but you're not sure it's worth it.
+
+\begin{console}[switch back to previous branch]
+    git switch -c new-branch
+\end{console}
+
+You can achieve the same effect with git checkout -b new-branch, but checkout does more than just switching branches, so switch was created for specificity.
+
 
 
 
