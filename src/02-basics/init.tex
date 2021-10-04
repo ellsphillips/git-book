@@ -9,29 +9,29 @@
 
 The following commands help you quicken and amend your commits prior to pushing to a remote repository
 
-\begin{console}[basic commit]
+\begin{git-bash}[basic commit]
     git add .
     git commit -m "Your message"
-\end{console}
+\end{git-bash}
 
 You can skip the git add using the -am flag to automatically add all the files in the cwd
 
-\begin{console}[quick commit]
+\begin{git-bash}[quick commit]
     git commit -am "Your message"
-\end{console}
+\end{git-bash}
 
 If you've committed with a spelling error, update the latest commit message with
 
-\begin{console}[amending messages]
+\begin{git-bash}[amending messages]
     git commit --amend -m "Updated message"
-\end{console}
+\end{git-bash}
 
 or if you've forgotten to add a file to your latest commit:
 
-\begin{console}[add a file onto a commit]
+\begin{git-bash}[add a file onto a commit]
     git add extra_file.txt
     git commit --amend --no-edit
-\end{console}
+\end{git-bash}
 
 where the --no-edit flag retains the original commit message
 
@@ -41,18 +41,18 @@ where the --no-edit flag retains the original commit message
 
 If you have changes that almost work but they can't really be committed yet because they break everything else or aren't up to par with the code style, or you just don't want your colleagues to see it yet, git stash will remove the changes from your working directory and save them for later use without committing them to the repo
 
-\begin{console}[basic stash]
+\begin{git-bash}[basic stash]
     git stash
     git pop
-\end{console}
+\end{git-bash}
 
 You can assign the stash a name to reference it later with git pop when you're ready to add those changes back into your code. Use git stash list to view all aliased stashes, find the stash you can to retrieve followed by git stash apply with the corresponding index to use it
 
-\begin{console}[list stash]
+\begin{git-bash}[list stash]
     git stash save coolstuff
     git stash list
     git stash apply 0
-\end{console}
+\end{git-bash}
 
 
 
@@ -62,16 +62,16 @@ Imagine you have a remote repository on GitHub and a local version on your machi
 
 First do a git fetch to grab the latest code in the remote repo, then use reset with the --hard flag to overwrite your local code with the remote code, but be careful, your local changes will be lost forever.
 
-\begin{console}[ditch local code]
+\begin{git-bash}[ditch local code]
     git fetch origin
     git reset --hard origin/master
-\end{console}
+\end{git-bash}
 
 But you might still be left with some random untracked files and build artefacts here or there. Use the git clean command to remove those files as well
 
-\begin{console}[ditch local code]
+\begin{git-bash}[ditch local code]
     git clean -df
-\end{console}
+\end{git-bash}
 
 
 
@@ -79,9 +79,9 @@ But you might still be left with some random untracked files and build artefacts
 
 If you recently switch out of a branch and forgot its name, you can use git checkout followed by a dash to go directory back into the previously branch you were working on
 
-\begin{console}[switch back to previous branch]
+\begin{git-bash}[switch back to previous branch]
     git checkout -
-\end{console}
+\end{git-bash}
 
 
 
@@ -89,9 +89,9 @@ If you recently switch out of a branch and forgot its name, you can use git chec
 
 If you find yourself working on a branch and need to move your current untracked changes to another (new or existing) branch, then git switch is the perfect use case for when you just want to test something, but you're not sure it's worth it.
 
-\begin{console}[switch back to previous branch]
+\begin{git-bash}[switch back to previous branch]
     git switch -c new-branch
-\end{console}
+\end{git-bash}
 
 You can achieve the same effect with git checkout -b new-branch, but checkout does more than just switching branches, so switch was created for specificity.
 

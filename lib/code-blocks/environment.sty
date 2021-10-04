@@ -99,7 +99,7 @@
 
 
 
-\newtcblisting[use counter=monokaicode]{console}[1][]{%
+\newtcblisting[use counter=monokaicode]{git-bash}[1][]{%
 	enhanced,
 	noparskip,
 	breakable,
@@ -111,17 +111,15 @@
 	enlarge bottom by=\baselineskip,
 	before upper={%
 		\lstdefinestyle{console-extras}{
-			language=console,
+			language=git-bash,
 		}
 	},
 	listing only,
 	listing options={},
 	listing style = console-extras,
-	after upper={%
-		%		\centering\strut Matlab Code~\thetcbcounter:~#1
-	},
-	top=10pt, %\ifx\detokenize#1\empty-20pt\else-5pt\fi,
-	bottom=-1mm,
+	after upper={},
+	top=0pt, %\ifx\detokenize#1\empty-20pt\else-5pt\fi,
+	bottom=2mm,
 	left=10mm,
 	bottomsep at break=5pt, %\ifx#1\empty10pt\else-5pt\fi,
 	topsep at break=5pt, %\ifx#1\empty20pt\else15pt\fi,
@@ -130,13 +128,13 @@
 	outer arc=0pt,
 	boxrule=0pt,
 	frame code={%
-		%		\draw[red,line width=4mm,rounded corners] (frame.north west) rectangle (frame.south east);
+%		\draw[red,line width=4mm,rounded corners] (frame.north west) rectangle (frame.south east);
 	},
 	underlay unbroken and first={%
 		\path[
-		draw=console-background!80!white,
-		line width = 1mm,
-		rounded corners=\codeborderradius
+			draw=console-background!80!white,
+			line width = 1mm,
+			rounded corners=\codeborderradius
 		]
 		([shift={(.33\codeborderwidth, .33\codeborderwidth)}]frame.south west)
 		-- ([shift={(.33\codeborderwidth, -.33\codeborderwidth)}]frame.north west)
@@ -148,18 +146,18 @@
 			\IfFileExists{./img/logos/nodejs.pdf}{%
 				\includegraphics[width=16pt]{img/logos/nodejs.pdf}%
 			}{%
-				\includegraphics[width=16pt]{example-image-a}%
+				\relax%
 			}
 		};
 		%
-		\node[anchor = north west] (logo) at ([shift={(7pt, -7pt)}]frame.north west) {%
-			\def\temp{#1}\ifx\temp\empty%
-			\relax%
-			\else%
-			\codefontsize\ttfamily\bfseries\color{white}%
-			\textcolor{monokai-purple}{\$}\ \textcolor{monokai-yellow}{npx}\ \color{monokai-blue}ts-node\ \textcolor{white}{#1}.ts%
-			\fi%
-		};
+%		\node[anchor = north west] (logo) at ([shift={(7pt, -7pt)}]frame.north west) {%
+%			\def\temp{#1}\ifx\temp\empty%
+%			\relax%
+%			\else%
+%			\codefontsize\ttfamily\bfseries\color{white}%
+%			\textcolor{monokai-purple}{\$}\ \textcolor{monokai-yellow}{npx}\ \color{monokai-blue}ts-node\ \textcolor{white}{#1}.ts%
+%			\fi%
+%		};
 	},
 	overlay first={%
 		\path[draw=console-background!80!white, line width = 1mm]
