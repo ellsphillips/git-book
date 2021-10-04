@@ -1,0 +1,79 @@
+\newcommand{\doctorsection}{}
+\renewcommand{\section}[1]{
+	\addtocounter{section}{1}
+%	\addcontentsline{toc}{section}{\thesection \; #1}
+	\vskip 1cm
+	\flushleft{
+		\Large\bfseries\thesection\;\textcolor{white}{#1}
+		\vskip -3mm
+		\textcolor{background-100}{\hrule}
+		\vskip 3mm
+	}
+	\vskip 3mm
+	\renewcommand{\doctorsection}{#1}
+	\setcounter{doctorsubsection}{0}
+	\justifying
+}
+
+
+
+\newcounter{doctorsubsection}[subsection]
+\setcounter{doctorsubsection}{1}
+
+\renewcommand{\subsection}[1]{
+	\stepcounter{doctorsubsection}
+	\addcontentsline{toc}{subsection}{\color{background-100} \thesection.\thedoctorsubsection \; #1}
+	\vskip3\baselineskip
+	\flushleft{
+		\begin{tikzpicture}[overlay]
+			\node[anchor = east, rectangle, rounded corners = 1pt, inner sep = 3.5pt, fill = maindocumentcolour] at (-0.45, 0.55) {\normalfont\sffamily\large\bfseries\color{background-400} \thesection.\thedoctorsubsection};
+		%
+			\draw[color = white, anchor=west] (-0.15, 0.5) node {\large\bfseries#1};
+		\end{tikzpicture}
+	}
+	\justify
+	\vskip-\baselineskip
+}
+
+
+
+\newcommand{\ellschaptertitle}{}
+\newcommand{\draw@chapterheader}[1]{% Regular chapters header
+	\renewcommand{\ellschaptertitle}{#1}
+	\begin{tikzpicture}[overlay, remember picture]
+		\node[anchor = north west] at (current page.north west) {
+			\begin{tikzpicture}[overlay, remember picture]
+				\fill[background-200] (current page.north west) rectangle ([yshift = -0.1\paperheight]current page.north east);
+			%
+				\draw[color = background-100!75!white, thick] ([yshift = -0.1\paperheight]current page.north west) -- ([yshift = -0.1\paperheight]current page.north east);
+			\end{tikzpicture}
+		};
+	%
+		\node[
+			rectangle,
+			rounded corners = 4pt,
+			inner sep = 11pt,
+			draw = background-100!75!white,
+			fill = background-100,
+			line width = 0.25mm,
+			yshift = -0.1\paperheight
+		] at (current page.north){
+			\Large\color{white}\bfseries\MakeUppercase{#1}
+		};
+	\end{tikzpicture}
+	\vskip-2\baselineskip
+}
+
+\newcommand{\draw@chaptersheader}[1]{% Table of Contents header etc
+	\begin{textblock}{1}(0,0)
+		\begin{tikzpicture}[x=1.0cm,y=1.0cm]%
+			\clip(0,0) rectangle (\paperwidth,.105\paperwidth);
+			\draw[header style] (0,.0333\paperwidth) rectangle (\paperwidth,.105\paperwidth);
+			\node[title color,right] at (.05\paperwidth,.07\paperwidth) {\LARGE \bf #1};
+		\end{tikzpicture}
+	\end{textblock}
+}
+
+\newcommand{\draw@chaptersfooter}{%
+	\pagestyle{empty}
+}

@@ -1,0 +1,211 @@
+\subsection{Importing \& exporting}
+
+Compile \texttt{.ts} files with \texttt{npx tsc ts_file_name.ts}
+
+Then run the resultant \texttt{.js} file with \texttt{node js_file_name.js}
+
+\begin{monokai}[ts-func-export.ts]{typescript}{
+        getName
+    }
+    export function getName(¬user¬: { ¬¬first¬¬: string; ¬¬last¬¬: string }): string {
+        return `${user?.first ?? "first"} ${user?.last ?? "last"}`;
+    }
+\end{monokai}
+
+\begin{monokai}[ts-func-import.ts]{typescript}{
+        getName,
+        log
+    }
+    import ¬¬getName¬¬ from './ts-func-export'
+    
+    console.log(getName({ ¬¬first¬¬: "Elliott"; ¬¬last¬¬: "Phillips" }))
+\end{monokai}
+
+
+
+\subsection{Functional parameters}
+
+Let's say you wanted to make a function that supports a callback, for example, printing to an external file:
+
+\begin{monokai}{typescript}{
+        printToFile,
+        log,
+        callback
+    }
+    export function printToFile(¬text¬: string, callback: () => void): void {
+        ¬¬console¬¬.log(¬¬text¬¬);
+        callback();
+    }
+\end{monokai}
+
+Let's create an array mutation function that takes an array of numbers. This takes a function that is given each number and returns a new number.
+
+\begin{monokai}{typescript}{
+        arrayMutate,
+        mutate,
+        map,
+        log
+    }
+    export function arrayMutate(
+        ¬numbers¬: number[],
+        mutate: (¬v¬: number) => number
+    ): number[] {
+        return ¬¬numbers¬¬.map(¬¬mutate¬¬)
+    }
+
+    ¬¬console¬¬.log(arrayMutate([1, 2, 3], (¬v¬) => ¬¬v¬¬ * 10))
+\end{monokai}
+
+\begin{console}[functional_parameters]
+    [ 10, 20, 30 ]
+\end{console}
+
+
+
+\subsection{Functions as types}
+
+Anything that follows a colon is a potential type specification that you can share with other objects. In the previous example, the \codeinline{mutate} functional parameter is hard to read. Introducing the \codeinline{type} keyword:
+
+\begin{monokai}{typescript}{
+        arrayMutate
+    }
+    type MutationFunction = (¬v¬: number) => number;
+\end{monokai}
+
+This \codeinline{MutationFunction} type definition can declare the type of the \codeinline{mutate} parameter:
+
+\begin{monokai}{typescript}{
+        arrayMutate,
+        mutate,
+        map,
+        log
+    }
+    type MutationFunction = (¬v¬: number) => number;
+
+    export function arrayMutate(
+        ¬numbers¬: number[],
+        mutate: MutationFunction
+    ): number[] {
+        return ¬¬numbers¬¬.map(¬¬mutate¬¬)
+    }
+
+    const ¬¬newMutateFunc¬¬: MutationFunction = (¬v¬: number) => ¬¬v¬¬ * 100;
+\end{monokai}
+
+
+
+\subsection{Returning functions}
+
+Functions that return functions... This is building on the classic JavaScript closure syntax.
+
+\begin{monokai}{typescript}{
+        createAdder,
+        addOne,
+        log
+    }
+    type AdderFunction = (¬v¬: number) => number;
+    
+    export function createAdder(num: number): AdderFunction {
+        return (¬val¬: number) => ¬¬num¬¬ + ¬¬val¬¬;
+    }
+    
+    const addOne = createAdder(1);
+    
+    ¬¬console¬¬.log(addOne(55));
+\end{monokai}
+
+\begin{console}[returning_functions]
+    56
+\end{console}
+
+
+
+\subsection{Function overloading}
+
+\begin{monokai}{typescript}{
+        parseCoordinate,
+        split,
+        forEach,
+        parseInt,
+        log
+    }
+    interface Coordinate {
+        x: number;
+        y: number;
+    }
+    
+    function parseCoordinate(¬str¬: string): Coordinate;
+    function parseCoordinate(¬obj¬: Coordinate): Coordinate;
+    function parseCoordinate(¬x¬: number, ¬y¬: number): Coordinate;
+    function parseCoordinate(¬argOne¬: unknown, ¬argTwo¬?: unknown): Coordinate {
+        let coord: Coordinate = {
+            x: 0,
+            y: 0,
+        };
+        
+        if (typeof ¬¬argOne¬¬ === "string") {
+            (¬¬arg1¬¬ as string).split(",").forEach((¬str¬) => {
+                const [key, value] = ¬¬str¬¬.split(":");
+                ¬¬coord¬¬[¬¬key¬¬ as "x" | "y"] = parseInt(¬¬value¬¬, 10);
+            });
+        } else if (typeof ¬¬argOne¬¬ === "object") {
+            ¬¬coord¬¬ = {
+                ...(¬¬argOne¬¬ as Coordinate),
+            };
+        } else {
+            ¬¬coord¬¬ = {
+                x: ¬¬argOne¬¬ as number,
+                y: ¬¬argTwo¬¬ as number,
+            };
+        }
+        
+        return ¬¬coord¬¬;
+    }
+    
+    ¬¬console¬¬.log(parseCoordinate(10, 20));
+    ¬¬console¬¬.log(parseCoordinate({ x: 52, y: 35 }));
+    ¬¬console¬¬.log(parseCoordinate("x:12, y:22"));
+\end{monokai}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

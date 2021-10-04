@@ -1,0 +1,30 @@
+Make some braids m8
+
+\begin{center}
+\begin{tikzpicture}
+\pic[
+    braid/every floor/.style={fill=yellow},
+    braid/floor
+    1/.style={draw=black,dashed,fill=yellow!50!green},
+    line width=2pt,
+    braid/strand 1/.style={red},
+    braid/strand 2/.style={blue},
+    braid/strand 3/.style={green},
+    braid/add floor={2,4,3,2,a},
+    braid/floor a/.style={fill=pink},
+    name prefix=braid,
+] at (2,0) {
+    braid={
+        |s_1-s_3-s_5|s_2^{-1}-s_4|s_1-s_4
+        s_2^{-1}s_1-s_3s_2^{-1}-s_4^{-1}
+    }
+};
+\fill[yellow] (2,0) circle (4pt);
+\node[at=(braid-3-s),pin=north west:strand 3 start]{};
+\node[at=(braid-3-e),pin=south west:strand 3 end]{};
+\node[at=(braid-rev-3-s),pin=north east:strand 3 (from
+bottom) start]{};
+\node[at=(braid-rev-3-e),pin=south east:strand 3 (from
+bottom) end]{};
+\end{tikzpicture}
+\end{center}

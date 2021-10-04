@@ -1,0 +1,73 @@
+\lstdefinelanguage{monokai-python}{
+	language=Python,
+	alsoletter={\\,@},
+	identifierstyle=\idstyle, 
+%
+	basicstyle=\codefontsize\ttfamily\bfseries\color{white},
+	numberstyle=\codefontsize\ttfamily\bfseries\color{monokai-grey-light},
+	stringstyle=\color{monokai-yellow},
+	commentstyle=\color{monokai-grey},
+%
+	keywordstyle=\color{monokai-pink},
+	keywords=[2]{str},
+	keywordstyle=[2]\slshape\color{monokai-blue},
+	keywords=[3]{self},
+	keywordstyle=[3]\slshape\color{monokai-grey-light},
+	keywords=[4]{},
+	keywordstyle=[4]\color{monokai-orange},
+	keywords=[5]{},
+	keywordstyle=[5]\color{monokai-green},
+%
+	morekeywords={def\ ,},
+	morekeywords=[2]{def\ ,},
+%
+%	procnamekeys={def},
+%	procnamestyle=\color{monokai-green},
+%	moredelim = **[is][\stringmodifiers]{r"""}{"""},
+%	moredelim = **[is][{\color{red}\beginlstdelim{"""}{"""}{green}}]{"""}{"""},
+	moredelim = [is][\slshape\color{monokai-orange}]{¬}{¬},
+	moredelim = [is][\normalcolor]{¬¬}{¬¬},
+	moredelim = [is][\color{monokai-purple}]{¬¬¬}{¬¬¬},
+	moredelim = [is][\squiggly]{~}{~},
+%
+	numbers=left,
+	xleftmargin=0pt,
+	framexleftmargin=0pt,
+	framextopmargin=0pt,
+	framexbottommargin=0pt,
+	rulecolor=\color{monokai-grey},
+	frame=l,
+	framerule=1pt,
+	breaklines=true,
+	tabsize=2,
+	showstringspaces=false,
+	aboveskip=\baselineskip,
+	belowskip=.5\baselineskip,
+	autogobble=true,
+%
+	literate=
+		{def\ }{{{\slshape\color{monokai-blue}def\ }}}4
+		{-\ }{{{\color{monokai-pink}-\ }}}2
+		{+}{{{\color{monokai-pink}+}}}1
+		{/}{{{\color{monokai-pink}/}}}1
+		{*}{{{\color{monokai-pink}*}}}1
+		{=}{{{\color{monokai-pink}=}}}1
+		{<}{{{\color{monokai-pink}<}}}1
+		{>}{{{\color{monokai-pink}>}}}1
+		{:}{{{\color{monokai-grey}:}}}1
+		{.}{{{\color{monokai-grey}.}}}1
+		{,}{{{\color{monokai-grey},}}}1
+		{[}{{\textcolor{monokai-yellow}{[}}}{1}
+		{]}{{\textcolor{monokai-yellow}{]}}}{1}
+		{(}{{\textcolor{monokai-yellow}{(}}}{1}
+		{)}{{\textcolor{monokai-yellow}{)}}}{1}
+		{->}{{{\color{monokai-grey}->}}}2
+		{==}{{\textcolor{monokai-pink}{\doubleequals}}}{2}
+		{===}{{\textcolor{monokai-pink}{\tripleequals}}}{3}
+		{\&}{{{\color{monokai-yellow}\&}}}1
+		{r""}{{\textcolor{monokai-blue}{\slshape r}\textcolor{monokai-yellow}{""}}}{3}
+		{b""}{{\textcolor{monokai-blue}{\slshape b}\textcolor{monokai-yellow}{""}}}{3}
+		{f""}{{\textcolor{monokai-blue}{\slshape f}\textcolor{monokai-yellow}{""}}}{3}
+		{\\}{{{\color{monokai-yellow}\textbackslash}}}1
+		{\\n}{{{\color{monokai-purple}\textbackslash n}}}2
+}

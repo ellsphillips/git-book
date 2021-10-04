@@ -1,0 +1,29 @@
+\title{Git It?}
+\subtitle{A comprehensive guide to Git versioning}
+\author{Elliott Phillips}
+\credential{Data Scientist}
+\credential{BSc OR $\bm{\mathrm{II}}$}
+\date{\today}
+
+\frontpage
+
+%\blankpage
+%
+{ % Document setup
+	\makeatletter
+	\@twosidetrue
+	\@openrighttrue
+	\makeatother
+	
+	\ifodd\thepage\relax\else\blankpage\fi
+	
+%	\chaptertabs
+	
+	\setcounter{page}{1}
+}
+
+\input{src/01-about/init}
+
+\input{src/02-basics/init}
+
+\input{src/99-testing/init}
