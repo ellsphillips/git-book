@@ -99,6 +99,25 @@
 
 
 
+\makeatletter
+\let\@oridoenpe\@doendpe
+\def\@newdoendpe{%
+	\@endpetrue
+	\def\par{\@restorepar\global\let\@doendpe\@oridoenpe
+		\clubpenalty\@clubpenalty
+		\everypar
+		{{\setbox\z@\lastbox}%
+			\everypar{}}\par\@endpefalse}%
+	\everypar{{\setbox\z@\lastbox}%
+		\everypar{}\@restorepar\@endpefalse
+}}
+
+\newcommand\usenewdoendpe{\global\let\@doendpe\@newdoendpe}
+\newcommand\useendparenv{\par\@endparenv}
+\makeatother
+
+
+
 \newtcblisting[use counter=monokaicode]{git-bash}[1][]{%
 	enhanced,
 	noparskip,
@@ -117,7 +136,10 @@
 	listing only,
 	listing options={},
 	listing style = console-extras,
+	parbox=false,
+%	before upper={\parindent0pt},
 	after upper={},
+%	after={\usenewdoendpe\smallskip\useendparenv},
 	top=0pt, %\ifx\detokenize#1\empty-20pt\else-5pt\fi,
 	bottom=2mm,
 	left=10mm,
@@ -131,36 +153,22 @@
 %		\draw[red,line width=4mm,rounded corners] (frame.north west) rectangle (frame.south east);
 	},
 	underlay unbroken and first={%
-		\path[
+		\path[%
 			draw=console-background!80!white,
 			line width = 1mm,
-			rounded corners=\codeborderradius
+			rounded corners=\codeborderradius,
 		]
 		([shift={(.33\codeborderwidth, .33\codeborderwidth)}]frame.south west)
 		-- ([shift={(.33\codeborderwidth, -.33\codeborderwidth)}]frame.north west)
 		-- ([shift={(-.33\codeborderwidth, -.33\codeborderwidth)}]frame.north east)
 		-- ([shift={(-.33\codeborderwidth, .33\codeborderwidth)}]frame.south east)
 		-- cycle;
-		%
-		\node[anchor = north east] (logo) at ([shift={(-7pt, -7pt)}]frame.north east) {%
-			\IfFileExists{./img/logos/nodejs.pdf}{%
-				\includegraphics[width=16pt]{img/logos/nodejs.pdf}%
-			}{%
-				\relax%
-			}
-		};
-		%
-%		\node[anchor = north west] (logo) at ([shift={(7pt, -7pt)}]frame.north west) {%
-%			\def\temp{#1}\ifx\temp\empty%
-%			\relax%
-%			\else%
-%			\codefontsize\ttfamily\bfseries\color{white}%
-%			\textcolor{monokai-purple}{\$}\ \textcolor{monokai-yellow}{npx}\ \color{monokai-blue}ts-node\ \textcolor{white}{#1}.ts%
-%			\fi%
-%		};
 	},
 	overlay first={%
-		\path[draw=console-background!80!white, line width = 1mm]
+		\path[%
+			draw=console-background!80!white,
+			line width = 1mm,
+		]
 		([shift={(.33\codeborderwidth, .33\codeborderwidth)}]frame.south west)
 		[rounded corners=\codeborderradius]-- ([shift={(.33\codeborderwidth, -.33\codeborderwidth)}]frame.north west)
 		[rounded corners=\codeborderradius]-- ([shift={(-.33\codeborderwidth, -.33\codeborderwidth)}]frame.north east)
@@ -168,11 +176,14 @@
 		[sharp corners]-- cycle;
 	},
 	overlay last={%
-		\path[draw=console-background!80!white, line width = 1mm]
+		\path[%
+			draw=console-background!80!white,
+			line width = 1mm,
+		]
 		([shift={(.33\codeborderwidth, .33\codeborderwidth)}]frame.south west)
 		[sharp corners]-- ([shift={(.33\codeborderwidth, -.33\codeborderwidth)}]frame.north west)
 		[sharp corners]-- ([shift={(-.33\codeborderwidth, -.33\codeborderwidth)}]frame.north east)
 		[rounded corners=\codeborderradius]-- ([shift={(-.33\codeborderwidth, .33\codeborderwidth)}]frame.south east)
 		[rounded corners=\codeborderradius]-- cycle;
-	}
+	},
 }
