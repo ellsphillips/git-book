@@ -4,9 +4,9 @@
 %	\addcontentsline{toc}{section}{\thesection \; #1}
 	\vskip 1cm
 	\flushleft{
-		\Large\bfseries\thesection\;\textcolor{white}{#1}
+		\Large\bfseries\thesection\;\textcolor{monokai-fg}{#1}
 		\vskip -3mm
-		\textcolor{background-100}{\hrule}
+		\textcolor{monokai-fg!50!monokai-bg}{\hrule}
 		\vskip 3mm
 	}
 	\vskip 3mm
@@ -64,20 +64,16 @@
 \newcommand{\draw@chapterheader}[1]{% Regular chapters header
 	\renewcommand{\ellschaptertitle}{#1}
 	\begin{tikzpicture}[overlay, remember picture]
-		\node[anchor = north west] at (current page.north west) {
-			\begin{tikzpicture}[overlay, remember picture]
-				\fill[background-200] (current page.north west) rectangle ([yshift = -0.1\paperheight]current page.north east);
-			%
-				\draw[color = background-100!75!white, thick] ([yshift = -0.1\paperheight]current page.north west) -- ([yshift = -0.1\paperheight]current page.north east);
-			\end{tikzpicture}
-		};
+		\fill[monokai-bg!90!monokai-fg] (current page.north west) rectangle ([yshift = -0.1\paperheight]current page.north east);
+	%
+		\draw[color = monokai-fg!50!monokai-bg] ([yshift = -0.1\paperheight]current page.north west) -- ([yshift = -0.1\paperheight]current page.north east);
 	%
 		\node[
 			rectangle,
 			rounded corners = 4pt,
 			inner sep = 11pt,
-			draw = background-100!75!white,
-			fill = background-100,
+			draw = monokai-fg!50!monokai-bg,
+			fill = monokai-grey-400,
 			line width = 0.25mm,
 			yshift = -0.1\paperheight
 		] at (current page.north){

@@ -23,7 +23,7 @@
 				rounded corners = 6pt
 			},
 			line/.style={
-				draw = background-100!50!white,
+				draw = monokai-fg,
 				corners
 			},
 		}
@@ -33,20 +33,20 @@
 		\begin{scope}
 			\clip[corners] (center) -- (#1, #2) -- (0, #2) -- (center);
 			\fill[
-%				top color = maindocumentcolour,
-%				bottom color = maindocumentcolour!50
-			maindocumentcolour
+%				top color = monokai-accent-colour,
+%				bottom color = monokai-accent-colour!50
+			monokai-accent-colour
 			] (0, #2/2 * #3) rectangle ++(#1, #2/2);
 		\end{scope}
 	%
-		\draw[densely dotted, thick, maindocumentcolour!50, #4] (center) -- ++(0,-#2/2);
+		\draw[densely dotted, thick, monokai-accent-colour!50, #4] (center) -- ++(0,-#2/2);
 	%
 		\begin{scope}
 			\clip[corners] (center) -- (0,0) -- (#1,0) -- (center);
 			\fill[
-%				top color = maindocumentcolour!50,
-%				bottom color = maindocumentcolour
-			maindocumentcolour
+%				top color = monokai-accent-colour!50,
+%				bottom color = monokai-accent-colour
+			monokai-accent-colour
 			] (0, 0) rectangle ++(#1,{#2/2*(1-#3)});
 		\end{scope}
 	%
