@@ -56,7 +56,7 @@
 
 
 
-\DeclareOptionX{theme}{\colorlet{maindocumentcolour}{#1}}
+\DeclareOptionX{theme}{\colorlet{monokai-accent-colour}{#1}}
 
 \DeclareOptionX{logo}{\IfFileExists{#1}{\def\companylogo{#1}}{\def\companylogo{}}}
 
