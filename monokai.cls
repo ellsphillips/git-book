@@ -73,6 +73,10 @@
 \newif\ifhourglass
 \DeclareOptionX{hourglass}{\hourglasstrue}
 
+\DeclareOptionX{lightmode}{\monokailightmode}
+\DeclareOptionX{darkmode}{\monokaidarkmode}
+\ExecuteOptionsX{lightmode}
+
 
 
 \DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{book}}
