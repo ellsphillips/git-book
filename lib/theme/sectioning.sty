@@ -20,19 +20,42 @@
 \newcounter{doctorsubsection}[subsection]
 \setcounter{doctorsubsection}{1}
 
-\renewcommand{\subsection}[1]{
-	\stepcounter{doctorsubsection}
-	\addcontentsline{toc}{subsection}{\color{background-100} \thesection.\thedoctorsubsection \; #1}
-	\vskip3\baselineskip
-	\flushleft{
+\renewcommand{\subsection}[1]{%
+	\stepcounter{doctorsubsection}%
+	\addcontentsline{toc}{subsection}{\color{monokai-fg!50!monokai-bg} \thesection.\thedoctorsubsection \; #1}%
+	\vskip3\baselineskip%
+	\flushleft{%
 		\begin{tikzpicture}[overlay]
-			\node[anchor = east, rectangle, rounded corners = 1pt, inner sep = 3.5pt, fill = maindocumentcolour] at (-0.45, 0.55) {\normalfont\sffamily\large\bfseries\color{background-400} \thesection.\thedoctorsubsection};
+			\node[%
+				color = monokai-fg,
+				anchor = west,
+			] (subsection-text) at (-.33em, 0) {\large\bfseries\strut#1};
 		%
-			\draw[color = white, anchor=west] (-0.15, 0.5) node {\large\bfseries#1};
+			\node[%
+				anchor = east,
+				rectangle,
+				inner sep = 4pt,
+				baseline = (subsection-text.base),
+			] (subsection-label) at ([xshift=-.66em]subsection-text.west) {%
+				\fontfamily{JetBrainsMono-SemiBold}\selectfont%
+				\defaultfontfeatures{LetterSpace=10}%
+				\ttfamily\bfseries\color{monokai-bg}%
+				\strut\thesection.\thedoctorsubsection%
+			};
+		%
+			\begin{pgfonlayer}{background}%
+				\fill[
+					monokai-accent-colour,
+					rounded corners = 1pt,
+				]%
+				([yshift=-1pt]subsection-label.north west)%
+				rectangle%
+				([yshift=4pt]subsection-label.south east);%
+			\end{pgfonlayer}%
 		\end{tikzpicture}
 	}
 	\justify
-	\vskip-\baselineskip
+	\vskip\baselineskip
 }
 
 
