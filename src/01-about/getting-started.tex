@@ -1,0 +1,9 @@
+Git, created by Linus Torvalds in 2005, is a system for keeping track of changes that happen across a set of files. To initialise a new Git repository, open a directory on your local system with an editor like VS Code then run \codeinline{git init} from the command line. Git repos live in the hidden .git directory and keep track of all the changes that happen to files as you work on a codebase.
+
+Commits are a method of taking snapshots of the current state of your files, and each commit has its own unique ID and is linked to its parent, allowing us to travel back in time to a previous version of our files.
+
+The head represents the most recent commit. If we make some changes and commit them to the repo, the head moves forward but we still have a reference to our previous commits so we can always go back to it.
+
+Where Git really shines is enabling managed collaborative working. Software typically isn't developed linearly -- you may have multiple teams working on different features for the same codebase simultaneously. Git makes that possible by branching. Create a branch by running \codeinline{git branch} and then run \codeinline{git checkout} to move into that branch. You can now safely work on your feature in this branch without affecting the code or files in the master branch.
+
+Commits made in these branches live in an alternate universe with its own unique history. Eventually, you'll likely want to merge a branch's history with the master's history. Run \codeinline{git merge} on your feature branch, whose `tip' now becomes the head of the master branch, or, in other words, our fragmented universe has become one.
