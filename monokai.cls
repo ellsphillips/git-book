@@ -22,9 +22,12 @@
 % ------------------------------------------------------------------------------
 
 \usepackage{%
+	lib/colour/monokai-theme,
+}
+	
+\usepackage{%
 	lib/fonts,
 	lib/graphics,
-	lib/colours,
 	lib/page,
 	lib/refs,
 }
