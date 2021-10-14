@@ -1,0 +1,75 @@
+\usepackage{ifthen}
+\newboolean{presentation_ready}
+\setboolean{presentation_ready}{true}
+
+\newboolean{placeholders}
+\setboolean{placeholders}{false}
+
+
+
+\newcommand{\ready}[2][]{
+	\ifthenelse{\boolean{presentation_ready}}
+	{#2}
+	{#1}
+}
+
+\newcommand{\frameready}[1]{
+	\ready[
+		\ifthenelse{\boolean{placeholders}}{
+			\begin{frame}{Placeholder}
+			\end{frame}
+		}{}
+	]{#1}
+}
+
+\newcommand{\editing}[1]{
+	\ifthenelse{\boolean{presentation_ready}}{}{#1}
+}
+
+\newcommand{\frameediting}[1]{
+	\ifthenelse{\boolean{presentation_ready}}{}{#1}
+}
+
+\newcommand*\circled[1]{%
+	\tikz[baseline=(char.base)]{%
+		\node[circle,draw=none,inner sep=0pt,minimum height=1em] (char) {#1};
+		\draw (char) circle (0.55em);
+	}
+}
+
+
+
+\newbox\mytempbox
+\newdimen\mytempdimen
+
+\newcommand\includegraphicscopyright[3][]{%
+	\leavevmode\vbox{\vskip3pt\raggedright\setbox\mytempbox=\hbox{\includegraphics[#1]{#2}}%
+		\mytempdimen=\wd\mytempbox\box\mytempbox\par\vskip1pt%
+		\usebeamerfont{copyright text}{\usebeamercolor[fg]{copyright text}{\vbox{\hsize=\mytempdimen#3}}}\vskip3pt%
+	}
+}
+
+
+
+\newcommand{\enablegrid}{%
+	\setbeamertemplate{background}{%
+		\tikz[overlay, remember picture]{%, help lines]{
+			\tikzstyle{every node}=[opacity=0.1];
+			\tikzstyle{line}=[ultra thin,draw,opacity=0.1];
+		%
+			\foreach \x in {0,10,...,100} {%
+				\pgfmathparse{(\x-50)*0.0098}%
+				\edef\newx{\pgfmathresult}%
+				\path (current page.south) +(\newx\columnwidth,1.5em) node[anchor=west] {\Tiny$\x\%$};
+				\draw[line] (current page.south) ++(\newx\columnwidth,0) -- +(0,9.6);
+			}%
+		%
+			\foreach \y in {0,...,20} {%
+				\pgfmathparse{19-\y}%
+				\edef\newy{\pgfmathresult}%
+				\path (current page.south west) +(12.3, \newy em) node[anchor=south west,inner sep=0pt] {\Tiny$\y{}em$};
+				\draw[line] (current page.south west) ++(0, \newy em) -- +(12.8,0);
+			}%
+		}%
+	}%
+}

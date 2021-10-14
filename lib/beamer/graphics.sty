@@ -1,0 +1,201 @@
+\RequirePackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{lipsum}
+\RequirePackage{tikz}
+\RequirePackage{verbatim}
+\RequirePackage{etoolbox}
+\RequirePackage{booktabs}
+\RequirePackage{ragged2e}
+\RequirePackage[ddmmyyyy]{datetime}
+\RequirePackage{tabularx}
+\RequirePackage{wasysym}
+\RequirePackage{pgfplots}
+\RequirePackage{listings}
+\RequirePackage{fp}
+\RequirePackage{varwidth}
+\RequirePackage{xcolor}
+\usepackage{eso-pic}
+\usepackage{pdfpages}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{xifthen}
+
+\usepackage{relsize}
+\usepackage{soul}
+\usepackage{cancel}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+
+\newcommand{\etc}{\emph{etc.}}
+\newcommand{\ie}{\emph{i.e.}}
+\newcommand{\eg}{\emph{e.g.}}
+\newcommand{\vs}{\textit{vs.}}
+
+\usepackage[shortlabels]{enumitem}
+\setlist{itemsep=0.2cm}
+\setlist[itemize]{label={\raisebox{0.025\baselineskip}{\tiny$\color{monokai-accent-colour}\blacktriangleright$}}}
+\setlist[itemize,1]{itemsep=0.5cm}
+\setlist[enumerate]{label={\small\protect\color{monokai-accent-colour}\arabic*.}}
+\setlist[description]{font=\color{monokai-accent-colour}}
+
+\newcommand{\compresslist}{%
+	\setlength{\itemsep}{0em}%
+	\setlength{\parskip}{0pt}%
+	\setlength{\parsep}{0pt}%
+}
+
+\usepackage[sorting=none,backend=bibtex,autocite=footnote]{biblatex}
+
+\bibliography{references}
+
+\usepackage{multirow}
+\usepackage{color, colortbl}
+\setlength{\tabcolsep}{8pt}
+\newcolumntype{n}{C{1.6em}}
+\newcolumntype{g}{C{1.6em}}
+
+\usepackage{subfig,caption}
+\usepackage{float}
+
+\usepackage{adjustbox}
+
+\usepackage{multirow}
+\newcommand{\specialcell}[2][r]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+% Use to align an element of tabular table
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
+
+
+\usepackage{color, colortbl}
+
+\usepackage{subfig,caption}
+\usepackage{float}
+
+\usepackage{tikz,pgfplots}
+\usetikzlibrary{
+	matrix,
+	chains,
+	scopes,
+	positioning,
+	arrows,
+	shapes,
+	fit,
+	backgrounds,
+	calc,
+	patterns,
+	decorations,
+	shapes.misc,
+	shadows.blur,
+	shadows,
+	fadings,
+	decorations.pathreplacing,
+	shapes.arrows,
+	decorations.pathmorphing,
+	decorations.markings,
+	calendar
+}
+\usepgfplotslibrary{groupplots}
+\usepgfplotslibrary{fillbetween}
+\tikzset{
+	>=stealth',
+	invisible/.style={opacity=0.1},
+	visible on/.style={alt=#1{}{invisible}},
+	alt/.code args={<#1>#2#3}{%
+		\alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+	},
+}
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+\tikzstyle{inner box} = [box, clip]
+\tikzstyle{outer box} = [fill=none, box, thick, draw]
+\tikzstyle{wrapper box} = [fill=none, inner sep=0pt, outer sep=0pt, rounded corners=.5pt]
+\tikzstyle{box} = [inner sep=0pt, outer sep=0pt, rounded corners]
+\tikzstyle{line} = [draw, rounded corners, -latex', ultra thick]
+
+\tikzset{
+	box/.style={
+		inner sep=0pt,
+		outer sep=0pt,
+		rounded corners=#1
+	},
+	box/.default=4pt,
+	inner box/.style={
+		box=1pt,
+		clip
+	},
+	outer box/.style={
+		fill=none,
+		box,
+		thick,
+		draw
+	},
+	wrapper box/.style={
+		fill=none,
+		draw=none,
+		box=1pt
+	}
+}
+
+\tikzset{
+	varbrace/.style={
+		decorate,
+		decoration={brace,aspect=#1},
+		line width=.5pt
+	}
+}
+
+
+% Plot Colors
+\definecolor{color1}{RGB}{0,0,51}
+\definecolor{color2}{RGB}{0,0,153}
+\definecolor{color3}{RGB}{0,0,255}
+\definecolor{color4}{RGB}{80,0,255}
+\definecolor{color5}{RGB}{159,15,240}
+\definecolor{color6}{RGB}{239,66,189}
+\definecolor{color7}{RGB}{255,117,138}
+\definecolor{color8}{RGB}{255,168,87}
+\definecolor{color9}{RGB}{255,219,36}
+\definecolor{color10}{RGB}{255,255,96}
+
+
+
+\tikzset{
+	uipanel/.style={%
+		fill = white,
+		rounded corners = 0.75mm,
+		blur shadow = {%
+			shadow blur steps = 30,
+			shadow xshift = 0ex,
+			shadow yshift = 0ex,
+			shadow blur radius = 5mm,
+			shadow opacity = 10
+		}
+	}
+}
+
+\pgfdeclarepatternformonly[\hatchdistance,\hatchthickness]{flexible hatch}
+{\pgfqpoint{0pt}{0pt}}
+{\pgfqpoint{\hatchdistance}{\hatchdistance}}
+{\pgfpoint{\hatchdistance-1pt}{\hatchdistance-1pt}}%
+{
+	\pgfsetcolor{\tikz@pattern@color}
+	\pgfsetlinewidth{\hatchthickness}
+	\pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
+	\pgfpathlineto{\pgfqpoint{\hatchdistance}{\hatchdistance}}
+	\pgfusepath{stroke}
+}
+
+\tikzset{
+	hatch distance/.store in=\hatchdistance,
+	hatch distance=10pt,
+	hatch thickness/.store in=\hatchthickness,
+	hatch thickness=2pt
+}
