@@ -1,0 +1,42 @@
+% Remove default nav bar for re-position later
+\beamertemplatenavigationsymbolsempty
+
+% Top of page, above frametitle and navigation
+\setbeamertemplate{headline}{%
+	\leavevmode%
+	\begin{tikzpicture}
+		\fill[red] (current page.north west) rectangle ([yshift = -0.0\paperheight]current page.north east);
+	\end{tikzpicture}
+}
+
+\setbeamertemplate{frametitle}{%
+	\nointerlineskip%
+	\vspace{1mm}
+	\begin{beamercolorbox}[wd=\paperwidth,leftskip=4.33mm,rightskip=0mm,ht=6mm,dp=0.5em]{headline section}%
+	 	\setlength{\tabcolsep}{0cm}%
+	 	\begin{tabular}{L{10cm}R{5cm}}%
+	 		\editing{\cellcolor{red!20!black}}%
+	 		\if@protectFrameTitle%
+		 		\usebeamerfont{frametitle}{\protect\insertsubsection\color{monokai-fg!50!monokai-bg}~--~\insertframetitle}%
+	 		\else%
+		 		\usebeamerfont{frametitle}{\insertsubsection\color{monokai-fg!50!monokai-bg}~--~\insertframetitle}%
+	 		\fi%
+	 		&%
+	 		\hfill\scriptsize\color{monokai-fg!25!monokai-bg}%
+	 		\insertframenumber/\inserttotalframenumber%
+%			\null
+%	 		&%
+%	 		\editing{\cellcolor{green!20!black}}%
+%	 		\usebeamerfont{framesubtitle}{\usebeamercolor[fg]{subtitle}\insertframesubtitle}%
+	 	\end{tabular}
+	\end{beamercolorbox}%
+	\vspace{-4.5mm}
+	\begin{beamercolorbox}[wd=\paperwidth,ht=1mm,dp=0pt,leftskip=2mm]{headline section}%
+		\ready{\progressbar@titleprogressbar}%
+	\end{beamercolorbox}%
+	\vspace{-4.5mm}
+	\begin{beamercolorbox}{headline section}%
+		\hspace{-1.5pt}\tiny\insertnavigation{\linewidth}%
+	\end{beamercolorbox}%
+	\vspace{-6mm}%
+}

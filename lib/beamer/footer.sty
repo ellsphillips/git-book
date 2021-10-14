@@ -1,0 +1,59 @@
+\usenavigationsymbolstemplate{}
+
+\setbeamertemplate{footline}{
+	\begin{tikzpicture}[overlay, remember picture]
+		\node[%
+			anchor = south west,
+			xshift = 4.5mm,
+			yshift = 3mm,
+		] at (current page.south west) {%
+			\href{\beamer@doctor@website}{
+				\includegraphics[height = 4mm]{\beamer@doctor@logo}
+			}
+		};
+	%
+		\node[%
+			anchor = south east,
+			xshift = -4mm,
+			yshift = 2mm,
+		] at (current page.south east) {%
+			\tikz{%
+				\node[anchor = south east] (footertitle) {%
+					\href{\beamer@doctor@website}{%
+						\fontsize{5}{0}\selectfont%
+						\raggedleft\bfseries\inserttitle%
+					}
+				};
+			%
+				\node[anchor = north east] (footerdateauthor) at ([yshift = 1mm]footertitle.south east) {%
+					\href{mailto:\beamer@doctor@email}{%
+						\fontsize{5}{0}\selectfont%
+						\raggedleft\bfseries\insertauthor~$\cdot$~\insertdate%
+					}%
+				};
+			}
+		};
+	%
+%		\draw[red] ([xshift = 5.5mm]current page.south west) -- ([xshift = 5.5mm]current page.north west);
+%		\draw[red] ([xshift = -5.5mm]current page.south east) -- ([xshift = -5.5mm]current page.north east);
+%		\draw[red] ([yshift = 3.8mm]current page.south west) -- ([yshift = 3.8mm]current page.south east);
+%		\draw[red] ([yshift = 7.6mm]current page.south west) -- ([yshift = 7.6mm]current page.south east);
+	\end{tikzpicture}
+}
+
+%\addtobeamertemplate{footline}{
+%	\leavevmode
+%	\hbox{
+%		\begin{beamercolorbox}[wd=\paperwidth,ht=2.75ex,dp=3.25ex,right,rightskip=0.0375\paperwidth]{mycolor}
+%			\setbeamercolor{navigation symbols}{fg=monokai-accent-colour, bg=gray!50}
+%			\usebeamercolor[fg]{navigation symbols}
+%			\insertslidenavigationsymbol
+%			\insertframenavigationsymbol
+%			\insertsubsectionnavigationsymbol
+%			\insertsectionnavigationsymbol
+%			\insertdocnavigationsymbol
+%			\insertbackfindforwardnavigationsymbol
+%		\end{beamercolorbox}
+%	}
+%	\vskip0.5pt
+%}{}
