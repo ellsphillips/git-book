@@ -1,0 +1,92 @@
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	COLOR PALETTE
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\ProvidesPackage{beamercolorthemedoctor}
+
+\RequirePackage{lib/colour/monokai-theme}
+
+\usepackage{
+	xcolor,
+	color,
+}
+
+\newif\if@beamer@doctor@greybg
+\@beamer@doctor@greybgfalse
+\DeclareOptionBeamer{greybg}{\@beamer@doctor@greybgtrue}
+
+\DeclareOptionBeamer*{%
+  \PackageWarning{beamercolorthemedoctor}{Unknown option `\CurrentOption'}%
+}
+
+\ProcessOptionsBeamer
+
+
+
+\definecolor{sass}{HTML}{CC6699}
+\definecolor{typescript}{HTML}{007ACC}
+\definecolor{html}{HTML}{E34C26}
+\definecolor{css}{HTML}{264DE4}
+\definecolor{javascript}{HTML}{F0DB4F}
+\definecolor{python}{HTML}{4B8BBE}
+\definecolor{flask}{HTML}{000000}
+\definecolor{github}{HTML}{211F1F}
+\definecolor{jupyter}{HTML}{EB7325}
+\definecolor{nodejs}{HTML}{3C873A}
+\definecolor{pycharm}{HTML}{18D68C}
+\definecolor{nodejs}{HTML}{3C873A}
+\definecolor{vscode}{HTML}{0078D7}
+
+
+
+% General
+\setbeamercolor{normal text}{fg=monokai-fg, bg=monokai-bg}
+\setbeamercolor{block body}{fg=monokai-fg, bg=monokai-bg}
+\setbeamercolor{structure}{fg=monokai-fg}
+\setbeamercolor{alerted text}{fg=monokai-accent-colour}
+
+\setbeamercolor{example text}{fg=monokai-accent-colour}
+\setbeamercolor{copyright text}{fg=monokai-accent-colour}
+
+% Palettes
+\setbeamercolor{palette primary}{fg=monokai-bg, bg=monokai-fg!10!monokai-bg} % Section slides
+\setbeamercolor{palette secondary}{fg=monokai-fg, bg=monokai-bg}
+\setbeamercolor{palette tertiary}{fg=monokai-accent-colour, bg=monokai-bg}
+\setbeamercolor{palette quaternary}{fg=monokai-fg, bg=monokai-accent-colour}
+\setbeamercolor{mini frame}{bg=monokai-bg!50} % Miniframes
+\setbeamertemplate{section in head/foot shaded}[default][50]
+
+\setbeamercolor{section in head/foot}{fg=monokai-fg, bg=monokai-bg} % All navigation
+\setbeamercolor{headline section}{fg=monokai-fg, bg=monokai-bg} % Slide title
+
+% Titlepage
+\setbeamercolor{title}{parent=normal text}
+\setbeamercolor{subtitle}{fg=monokai-fg!50!monokai-bg}
+\setbeamercolor{institute}{parent=normal text}
+
+% Content
+\setbeamercolor{frametitle}{parent=palette secondary}
+
+% Blocks
+\setbeamercolor{block title}{fg=monokai-fg,bg=monokai-bg}
+\setbeamercolor{block body}{fg=monokai-fg, bg=monokai-bg}
+\setbeamercolor{block title example}{fg=monokai-accent-colour, bg=monokai-bg}
+\setbeamercolor{block body example}{fg=monokai-bg, bg=monokai-accent-colour}
+\setbeamercolor{block title alerted}{fg=monokai-fg, bg=monokai-accent-colour}
+\setbeamercolor{block body alerted}{fg=monokai-bg, bg=monokai-accent-colour}
+
+% Notes
+\setbeamercolor{note page}{fg=monokai-bg,bg=monokai-fg}
+\setbeamercolor{note title}{fg=monokai-bg, bg=monokai-fg}
+\setbeamercolor{note date}{parent=note title}
+
+% Page Number
+\setbeamercolor{page number in head/foot}{fg=monokai-fg}
+\setbeamercolor{qed}{fg=monokai-accent-colour}
+\setbeamercolor{itemize item}{fg=monokai-accent-colour}
+\setbeamercolor{itemize subitem}{fg=monokai-accent-colour}
+\setbeamercolor{itemize subsubitem}{fg=monokai-accent-colour}
+
+
+
+\mode<all>

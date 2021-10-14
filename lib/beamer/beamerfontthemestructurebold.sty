@@ -1,0 +1,18 @@
+\def\beamer@ftb@str{
+  \setbeamerfont{structure}{series=\bfseries}
+  \setbeamerfont{block title}{size={}}
+}
+\def\beamer@ftb@tstr{\setbeamerfont{tiny structure}{series=\bfseries}}
+
+\DeclareOptionBeamer{onlysmall}{\let\beamer@ftb@str=\relax}
+\DeclareOptionBeamer{onlylarge}{\let\beamer@ftb@tstr=\relax}
+
+\ProcessOptionsBeamer
+
+\mode<presentation>
+
+\beamer@ftb@str
+\beamer@ftb@tstr
+
+\mode
+<all>

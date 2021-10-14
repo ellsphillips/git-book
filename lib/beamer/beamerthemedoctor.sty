@@ -1,0 +1,261 @@
+%\usetheme{Frankfurt} 
+%\usecolortheme{dove}
+%\setbeamercolor{titlelike}{parent=structure}
+\usefonttheme{structurebold}
+
+
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	01. PACKAGE OPTIONS & SETUP
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\ProvidesPackage{beamerthemedoctor}
+
+\RequirePackage{lib/colour/monokai-theme}
+
+\newif\if@useTitleProgressBar
+\@useTitleProgressBartrue
+\DeclareOptionBeamer{noprogressbar}{\@useTitleProgressBarfalse}
+
+\newif\if@protectFrameTitle
+\@protectFrameTitlefalse
+\DeclareOptionBeamer{protectframetitle}{\@protectFrameTitletrue}
+
+\newif\if@dovaligncolumns
+\@dovaligncolumnsfalse
+\DeclareOptionBeamer{dovaligncolumns}{\@dovaligncolumnstrue}
+
+\newif\if@doSectionPage
+\@doSectionPagetrue
+\DeclareOptionBeamer{nosectionpage}{\@doSectionPagefalse}
+
+\DeclareOptionBeamer{theme}{%
+	\colorlet{monokai-accent-colour}{#1}%
+}
+
+\DeclareOptionBeamer{logo}{%
+	\IfFileExists{#1}{\def\beamer@doctor@logo{#1}}{\def\beamer@doctor@logo{}}%
+}
+
+\newif\if@beamer@doctor@darkmode
+\@beamer@doctor@darkmodefalse
+\colorlet{monokai-fg}{monokai-grey-900!10!black}
+\colorlet{monokai-bg}{monokai-grey-100!10!white}
+\DeclareOptionBeamer{darkmode}{%
+	\@beamer@doctor@darkmodetrue%
+	\colorlet{monokai-fg}{monokai-grey-100!10!white}
+	\colorlet{monokai-bg}{monokai-grey-700}
+}
+
+\DeclareOptionBeamer*{%
+	\PackageWarning{beamerthemedoctor}{Unknown option `\CurrentOption'}%
+}
+
+\DeclareOptionBeamer{website}{\def\beamer@doctor@website{#1}}
+
+\DeclareOptionBeamer{author}{\author{#1}}
+\DeclareOptionBeamer{email}{\def\beamer@doctor@email{#1}}
+
+\renewcommand*{\familydefault}{\sfdefault}
+
+\setbeamersize{text margin left=1em,text margin right=1em}
+
+\setbeamercovered{dynamic}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+
+\ProcessOptionsBeamer
+\mode<presentation>
+
+
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	02. PACKAGES & TIKZ
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\usepackage{lib/beamer/graphics}
+
+
+
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	Helper functions
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\usepackage{lib/beamer/utilities}
+
+
+
+
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	03. COLOR AND FONT THEMES (BEAMER)
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\usecolortheme[greybg=true]{doctor}
+\usefonttheme{doctor}
+
+\newcommand{\highlight}[2][monokai-accent-colour]{%
+	\textcolor{#1}{#2}%
+}
+
+
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	04. TITLE PAGE
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\usepackage{lib/beamer/titlepage}
+
+
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	05. TABLE OF CONTENTS
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+
+
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	06. PROGRESS BAR & HEADLINE
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\usepackage{lib/beamer/progressbar}
+
+
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	07. SECTION PAGES
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\usepackage{lib/beamer/sections}
+
+
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	08. ITEMIZE
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\setbeamertemplate{itemize item}{$\star$}
+\setbeamertemplate{itemize subitem}{\small$\star$}
+\setbeamertemplate{itemize subsubitem}{\tiny$\star$}
+\setlength{\parskip}{0.5em}
+
+
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	09. FOOTLINE
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\usepackage{lib/beamer/footer}
+
+
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	10. CAPTIONS
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\setbeamertemplate{caption label separator}{: }
+
+
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	11. FRAME TITLE
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\usepackage{lib/beamer/header}
+
+
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	12. IMAGES
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%\newbox\mytempbox
+%\newdimen\mytempdimen
+%
+%\newcommand\includegraphicscopyright[3][]{%
+%	\leavevmode\vbox{\vskip3pt\raggedright\setbox\mytempbox=\hbox{\includegraphics[#1]{#2}}%
+%		\mytempdimen=\wd\mytempbox\box\mytempbox\par\vskip1pt%
+%		\usebeamerfont{copyright text}{\usebeamercolor[fg]{copyright text}{\vbox{\hsize=\mytempdimen#3}}}\vskip3pt%
+%	}
+%}
+
+
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	13. BLOCKS
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\setbeamertemplate{block begin}
+{
+	\setbeamercolor{item}{parent=block body}
+	\leavevmode%
+	\begin{beamercolorbox}[sep=.5ex,ht=4.25ex,dp=0pt,leftskip=0.5ex,rightskip=0.5ex]{block title}%
+		\vbox to 3.25ex{\vfil\hbox{\usebeamerfont*{block title}\insertblocktitle{\hskip0pt plus1filll}}\vfil}%
+	\end{beamercolorbox}%
+	\vskip0pt%
+	{\parskip0pt\par}%
+	{\nointerlineskip\vskip-0.5pt}%
+	\usebeamerfont{block body}%
+	\begin{beamercolorbox}[sep=.5ex,dp=0ex,leftskip=0.5ex,rightskip=0.5ex,vmode]{block body}%
+	}
+	\setbeamertemplate{block end}
+	{\end{beamercolorbox}\vskip\smallskipamount}
+
+\setbeamertemplate{block alerted begin}
+{
+	\setbeamercolor{item}{parent=block body alerted}
+	\leavevmode%
+	\begin{beamercolorbox}[sep=.5ex,ht=4.25ex,dp=0pt,leftskip=0.5ex,rightskip=0.5ex]{block title alerted}%
+		\vbox to 3.25ex{\vfil\hbox{\usebeamerfont*{block title alerted}\insertblocktitle{\hskip0pt plus1filll}}\vfil}%
+	\end{beamercolorbox}%
+	\vskip0pt%
+	{\parskip0pt\par}%
+	{\nointerlineskip\vskip-0.5pt}%
+	\usebeamerfont{block body alerted}%
+	\begin{beamercolorbox}[sep=.5ex,dp=0ex,leftskip=0.5ex,rightskip=0.5ex,vmode]{block body alerted}%
+	}
+	\setbeamertemplate{block alerted end}
+	{\end{beamercolorbox}\vskip\smallskipamount}
+
+\setbeamertemplate{block example begin}
+{
+	\leavevmode%
+	\begin{beamercolorbox}[sep=.5ex,ht=4.25ex,dp=0pt,leftskip=0.5ex,rightskip=0.5ex]{block title example}%
+		\vbox to 3.25ex{\vfil\hbox{\usebeamerfont*{block title example}\insertblocktitle{\hskip0pt plus1filll}}\vfil}%
+	\end{beamercolorbox}%
+	\vskip0pt%
+	{\parskip0pt\par}%
+	{\nointerlineskip\vskip-0.5pt}%
+	\usebeamerfont{block body example}%
+	\begin{beamercolorbox}[sep=.5ex,dp=0ex,leftskip=0.5ex,rightskip=0.5ex,vmode]{block body example}%
+	}
+	\setbeamertemplate{block example end}
+	{\end{beamercolorbox}\vskip\smallskipamount}
+
+\mode
+<all>
+
+
+\usepackage{lib/beamer/layout}
+
+
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	14. NOTES
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\usepackage{lib/beamer/notes}
+
+
+
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	14. CODE BLOCKS
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\usepackage{lib/beamer/codeblocks}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
