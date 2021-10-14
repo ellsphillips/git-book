@@ -1,0 +1,70 @@
+\makeatletter
+\defbeamertemplate{note page}{infolines}
+{%
+	\hspace{-0.6cm}%
+	\vbox{%
+		\hbox{%
+			\begin{columns}%
+				\column{\dimexpr\paperwidth-10pt}%
+				\bicolumn{%
+					\vspace{-1cm}%
+					\insertslideintonotes{0.5}%
+				}{%
+					\displaytargettime%
+				}
+				\LARGE%
+				\insertnote%
+			\end{columns}
+		}%
+	}%
+}
+\makeatother
+
+
+\setbeamertemplate{note page}[infolines]
+
+\newcommand{\lasttargettime}{0 min}
+\newcommand{\targettime}{0 min}
+\newcommand{\settargettime}[1]{
+	\edef\x{\targettime}
+	\renewcommand{\lasttargettime}{\x}
+	\renewcommand{\targettime}{#1}
+}
+
+
+\newcommand{\displaytargettime}{%
+	\begin{tikzpicture}%
+		\node{};
+		\node[anchor=north,align=center,draw=blue, ultra thick, rounded corners,inner sep=5mm,fill=white] at (0,0.5cm){%
+			\color{black!40!green}\LARGE\lasttargettime \\
+			$\downarrow$ \\
+			\color{red}\Huge\targettime%
+		};
+	\end{tikzpicture}
+}
+
+\newenvironment{slideHeader}{%
+	\vspace{1em}%
+%	\fbox{
+	\begin{minipage}[b][5em][t]{\textwidth}%
+%	}
+}{%
+	\end{minipage}%
+}
+
+\newcommand{\centeredExample}[4]{%
+	\begin{example}
+		#1
+		\begin{columns}
+			\column{0.5\textwidth}
+			\begin{center}
+				#2
+			\end{center}
+			\column{0.5\textwidth}
+			\begin{center}
+				#3
+			\end{center}
+		\end{columns}
+		#4
+	\end{example}
+}
