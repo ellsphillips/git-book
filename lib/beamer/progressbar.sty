@@ -1,0 +1,180 @@
+\makeatletter
+\def\progressbar@sectionprogressbar{}
+\def\progressbar@titleprogressbar{}
+
+% Progress bar dimensions
+\newdimen\progressbar@pbht
+\newdimen\progressbar@pbwd
+
+% Auxiliary dimensions
+\newdimen\progressbar@tmpdima
+\newdimen\progressbar@tmpdimb
+\newdimen\progressbar@tmpdimc
+
+\newlength{\progressbarlength}
+\setlength{\progressbarlength}{0.933\paperwidth-1pt}
+
+\newlength{\progressbarwidth}
+\setlength{\progressbarwidth}{0.75mm}
+
+\progressbar@pbwd=20em
+\progressbar@pbht=2.5pt
+
+\colorlet{sectiondone}{monokai-fg!25!monokai-bg}
+\colorlet{sectioncurrent}{monokai-accent-colour}
+\colorlet{sectiontodo}{monokai-fg!50!monokai-bg}
+
+
+% the progress bar
+\def\progressbar@sectionprogressbar{%
+	\usebeamercolor{palette quaternary}%
+%
+	\progressbar@tmpdima=0pt%
+	\progressbar@tmpdimb=0pt%
+%
+	\FPsub\progressbar@sectionpagesminusone{\insertsectionendpage}{\insertsectionstartpage}%
+	\FPadd\progressbar@sectionpages{\progressbar@sectionpagesminusone}{1}%
+	\FPsub\progressbar@pagesinpresentation{\number\numexpr\insertpresentationendpage}{\insertpresentationstartpage}%
+	\FPsub\progressbar@pagesfromstarttosectionstart{\insertsectionstartpage}{\insertpresentationstartpage}%
+	\FPsub\progressbar@pagesfromstarttosectionstart{\progressbar@pagesfromstarttosectionstart}{1}%
+%
+	\FPifzero\progressbar@pagesinpresentation\relax%
+	\else\relax%
+	\FPdiv\progressbar@tmpa{\progressbar@pagesfromstarttosectionstart}{\progressbar@pagesinpresentation}%
+	\FPdiv\progressbar@tmpb{\progressbar@sectionpages}{\progressbar@pagesinpresentation}%
+%
+	\progressbar@tmpdima=\progressbar@tmpa\progressbar@pbwd%
+	\progressbar@tmpdimb=\progressbar@tmpb\progressbar@pbwd%
+	\fi%
+	\fontsize{1em}{1em}\selectfont%
+	\begin{tikzpicture}[tight background, yscale=-0.5]%
+		\node[inner box] (progress-bar-inner) {%
+			\hspace{0mm}%
+			\tikz[] {%
+				\fill[%
+					anchor=west,
+					sectiondone,
+					inner sep=0pt,
+					sharp corners,
+				] (0, -1ex) rectangle ++ (\progressbar@pbwd, \progressbar@pbht);
+			%
+				\fill[%
+					anchor=west,
+					sectioncurrent,
+					inner sep=0pt,
+					sharp corners,
+				] (\progressbar@tmpdima, -1ex) rectangle ++ (\progressbar@tmpdimb, \progressbar@pbht);
+			%
+				\fill[%
+					anchor=west,
+					sectiontodo,
+					inner sep=0pt,
+					sharp corners,
+				] (0, -1ex) rectangle ++ (\progressbar@tmpdima, \progressbar@pbht);
+			}%
+		};
+	%
+		\node[outer box, fit=(progress-bar-inner), draw=none] (progress-bar-outer) {};
+	\end{tikzpicture}%
+}
+
+\renewcommand{\insertpresentationendpage}{%
+	\ifx\beamer@startpageofappendix\@empty%
+		\beamer@endpageofdocument\relax%
+	\else%
+		\number\numexpr\beamer@startpageofappendix-1\relax%
+	\fi%
+}
+
+
+
+\colorlet{titledone}{monokai-fg!25!monokai-bg}
+\colorlet{titlecurrentslide}{monokai-yellow}
+\colorlet{titlecurrentssection}{monokai-accent-colour}
+\colorlet{titletodo}{monokai-fg!50!monokai-bg}
+
+\if@useTitleProgressBar
+\def\progressbar@titleprogressbar{%
+	{
+		\usebeamercolor{palette quaternary}%
+	%
+		\FPsub\progressbar@sectionpagesminusone{\insertsectionendpage}{\insertsectionstartpage}%
+		\FPadd\progressbar@sectionpages{\progressbar@sectionpagesminusone}{1}%
+		\FPsub\progressbar@pagesinpresentation{\number\numexpr\insertpresentationendpage}{\insertpresentationstartpage}%
+		\FPsub\progressbar@pagesfromstarttosectionstart{\insertsectionstartpage}{\insertpresentationstartpage}%
+		\FPsub\progressbar@pagesfromstarttosectionstart{\progressbar@pagesfromstarttosectionstart}{1}%
+	%
+		\FPifzero\progressbar@sectionpagesminusone\relax%
+		\FPsub\progressbar@tmpa{0}{0}%
+		\FPsub\progressbar@tmpb{0}{0}%
+		\FPsub\progressbar@tmpc{0}{0}%
+		\else\relax%
+		\FPsub\progressbar@tmpa{\insertframeendpage}{\insertsectionstartpage}%
+		\FPdiv\progressbar@tmpa{\progressbar@tmpa}{\progressbar@sectionpagesminusone}%
+		\FPmul\progressbar@tmpa{\progressbar@tmpa}{\progressbar@sectionpages}%
+		\FPadd\progressbar@tmpa{\progressbar@tmpa}{\progressbar@pagesfromstarttosectionstart}%
+	%
+		\FPsub\progressbar@tmpb{\insertframestartpage}{\insertsectionstartpage}%
+		\FPsub\progressbar@tmpb{\progressbar@tmpb}{1}%
+		\FPdiv\progressbar@tmpb{\progressbar@tmpb}{\progressbar@sectionpagesminusone}%
+		\FPmul\progressbar@tmpb{\progressbar@tmpb}{\progressbar@sectionpages}%
+		\FPadd\progressbar@tmpb{\progressbar@tmpb}{\progressbar@pagesfromstarttosectionstart}%
+	%
+		\FPsub\progressbar@tmpc{\insertsectionendpage}{\insertpresentationstartpage}%
+		\fi%
+	%
+		\FPifzero\progressbar@pagesinpresentation\relax%
+		\progressbar@tmpdima=0pt%
+		\progressbar@tmpdimb=0pt%
+		\progressbar@tmpdimc=0pt%
+		\else\relax%%
+		\FPdiv\progressbar@tmpa{\progressbar@tmpa}{\progressbar@pagesinpresentation}%
+		\FPdiv\progressbar@tmpb{\progressbar@tmpb}{\progressbar@pagesinpresentation}%
+		\FPdiv\progressbar@tmpc{\progressbar@tmpc}{\progressbar@pagesinpresentation}%
+	%
+		\progressbar@tmpdima=\progressbar@tmpa\progressbarlength%
+		\progressbar@tmpdimb=\progressbar@tmpb\progressbarlength%
+		\progressbar@tmpdimc=\progressbar@tmpc\progressbarlength%
+		\fi%
+    %
+		\begin{tikzpicture}[tight background, yscale=-0.5]%
+	      	\node[inner box] (progress-bar-inner) {%
+	      		\hspace{0mm}%
+	      		\tikz[] {%
+			        \fill[%
+			        	anchor=west,
+			        	titledone,
+			        	inner sep=0mm,
+			        	sharp corners,
+			        ] (0, 0) rectangle (\progressbarlength, \progressbarwidth);
+	      		%
+	      			\fill[%
+		      			anchor=west,
+		      			fill=titlecurrentslide,
+		      			inner sep=0mm,
+		      			sharp corners,
+	      			] (\progressbar@tmpdimb, 0) rectangle (\progressbar@tmpdima, \progressbarwidth);
+	      		%
+			        \fill[%
+				        anchor=west,
+				        titlecurrentssection,
+				        opacity=1,
+				        inner sep=0mm,
+				        sharp corners,
+			        ] (\progressbar@tmpdima, 0) rectangle (\progressbar@tmpdimc, \progressbarwidth);
+	      		%
+			        \fill[%
+						anchor=west,
+						titletodo,
+						opacity=1,
+						inner sep=0mm,
+						sharp corners,
+			        ] (0, 0) rectangle (\progressbar@tmpdimb, \progressbarwidth);
+			    }%
+			};%
+		%
+			\node[outer box, fit=(progress-bar-inner), draw=none] (progress-bar-outer) {};
+		\end{tikzpicture}%
+    }%
+}
+\fi
