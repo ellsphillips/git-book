@@ -1,0 +1,31 @@
+\begin{frame}
+\frametitle{Simple}
+\monocolumn{%
+	\begin{tikzpicture}
+	\node[scale = 0.66, inner box] (table) {
+		\color{monokai-fg}
+		\rowcolors{2}{monokai-bg}{monokai-fg!10!monokai-bg}
+		\begin{tabular}{
+			>{\bfseries}r 
+			>{\raggedleft\arraybackslash}p{0.6\linewidth} 
+			>{\raggedleft\arraybackslash}p{0.6\linewidth}
+		}
+		\rowcolor{monokai-bg} & \textbf{Description\_new} & \textbf{Description\_old} \\
+		\hline
+		0 & antique restoration & antique restoration \\
+		1 & other information technology serviceactivities & \highlight{in the year under review was that of} other information technology serviceactivities \\
+		2 & technical testing and analysis & \highlight{continued to be that of} technical testing and analysis \\
+		3 & supply of bar and catering operations within york theatre royal & \highlight{during the year was the} supply of bar and catering operations within york theatre royal \\
+		4 & public houses and bars & \highlight{during the period under review was} public houses and bars \\
+		5 & property development and ownership & \highlight{continued to be that of} property development and ownership \\
+		6 & fabric design, prodction and sales & \highlight{the company's principal activity during the year continued to be that of} fabric design, prodction and sales \\
+		\end{tabular}
+	};
+%
+	\node[outer box, fit=(table), draw] {};
+	\end{tikzpicture}
+}%
+\note{
+	%
+}
+\end{frame}

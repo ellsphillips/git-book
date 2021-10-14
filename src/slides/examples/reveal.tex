@@ -1,0 +1,87 @@
+\newcommand\examplebulletlistlength{3}
+\newlength{\exampleleftListLength}
+\setlength{\exampleleftListLength}{0.45\textwidth}
+\newlength{\examplerightListLength}
+\setlength{\examplerightListLength}{0.45\textwidth}
+
+\begin{frame}
+  \frametitle{Adaptive brace}
+	\monocolumn{
+		\begin{tikzpicture}[
+      baseline=2.5ex,
+      every node/.style={
+        text depth=0.2ex,
+        text height=1.3ex
+      }
+    ]
+      
+      \matrix[
+        matrix of math nodes,
+        column 1/.style={
+          anchor=base west,
+          nodes={font=\small}
+        },
+      ] (list1) {
+        \text{Item 1} \\
+        \text{\onslide<2->{Item 2}} \\
+        \text{\onslide<3->{Item 3}} \\
+        \text{\color{pink}\rule{\exampleleftListLength}{1mm}} \\
+      };
+
+	\foreach \pos in {1, 2, ..., \examplebulletlistlength} {%
+		\pgfmathparse{1-\pos*\examplebulletlistlength/100+.05}
+		\edef\bracepos{\pgfmathresult}
+		\only<\pos>{%
+			\draw[varbrace=\bracepos]%
+				(list1-\the\numexpr\examplebulletlistlength+1\relax-1.north west)%
+				-- %
+				(list1-1-1.north west-|list1-\the\numexpr\examplebulletlistlength+1\relax-1.south west);
+		}
+	}
+      
+
+      \node[left=0\textwidth of list1, xshift = -.25cm, yshift = -1.75cm] (list2) {
+      	\begin{tikzpicture}
+      		\foreach \examplerightcontent [count=\exampleslideNumber from 1] in {
+      			{item1},%
+      			{item2},%
+      			{item3},%
+      		}{
+	      		\only<\exampleslideNumber>{%
+	      			\node (leftcontent) {
+	      				\begin{varwidth}{\examplerightListLength}
+	      					\begin{itemize}
+	      						\small
+	      						\only<1>{
+	      							\item First lot of content
+	      							\item First lot of content
+	      						}
+	      						\only<2>{
+	      							\item Content on second slide
+	      							\begin{itemize}
+	      								\item Content on second slide
+	      							\end{itemize}
+      								\item Content on second slide
+	      						}
+	      						\only<3>{
+	      							\item Final slide of content
+	      							\item Final slide of content
+	      							\item Final slide of content
+	      							\item Final slide of content
+	      						}
+	      					\end{itemize}
+	      					\vskip -.33\baselineskip
+	      					\color{orange}\rule{\examplerightListLength}{1mm}
+	      				\end{varwidth}
+      				};
+      			}
+	      	}
+      	\end{tikzpicture}
+      };
+    \end{tikzpicture} 
+	}
+
+  \note {
+    %
+  }
+\end{frame}

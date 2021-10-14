@@ -1,0 +1,34 @@
+%% Start of file `code-book/slides.tex'.
+%% Copyright 2021 Elliott Phillips <https://github.com/ellsphillips>
+%
+% !TeX program = xelatex
+% !TEX encoding = UTF-8 Unicode
+
+%\documentclass[handout]{beamer}
+%\documentclass[notes]{beamer}
+\documentclass[
+	aspectratio = 169,
+	compress,
+	xcolor=table,
+]{beamer}
+
+\batchmode
+\graphicspath{ {./figures/} }
+
+\usepackage{lib/beamer/doctor}
+
+\usefolder{lib/beamer}
+\usetheme[
+	darkmode,
+	theme=monokai-orange,
+	logo=img/logos/git.pdf,
+	author={Elliott Phillips},
+	email={elliott.phillips@ons.gov.uk},
+	website={https://github.com/ellsphillips/git-book},
+]{doctor}
+
+% \enablegrid
+
+\begin{document}
+\input{src/slides/__init__}
+\end{document}
