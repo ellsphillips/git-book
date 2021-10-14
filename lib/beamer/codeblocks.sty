@@ -1,0 +1,26 @@
+\newcommand{\vscode}[4][0.66]{
+	\pgfmathparse{1 - #3}
+	\edef\codeblockwidth{\pgfmathresult}
+	\begin{tikzpicture}[remember picture]
+		\node[inner box] (codeimg) {%
+			\adjustbox{%
+				trim=0 0 {\codeblockwidth\width} 0,%
+				clip%
+			}{%
+				\includegraphics[%
+					width=0.8\textwidth,%
+				]{figures/code/code-block_#4.pdf}%
+			}%
+		};
+	%
+		\node[outer box, fit=(codeimg), draw=#2, line width = #1mm] (codewrapper) {};
+	%
+		\node[anchor = north east, yshift = 0mm] at (codewrapper.north east) {%
+			\if\detokenize{#2}%
+				\relax%
+			\else%
+				\includegraphics[width = 5mm]{figures/logos/#2.pdf}%
+			\fi%
+		};
+	\end{tikzpicture}
+}
