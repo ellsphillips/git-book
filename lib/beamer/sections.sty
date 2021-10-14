@@ -1,0 +1,122 @@
+\let\beamer@writeslidentry@miniframeson=\beamer@writeslidentry
+\def\beamer@writeslidentry@miniframesoff{%
+	\expandafter\beamer@ifempty\expandafter{\beamer@framestartpage}{}% does not happen normally
+	{%else
+		% removed \addtocontents commands
+		\clearpage\beamer@notesactions%
+	}
+}
+\newcommand*{\miniframeson}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframeson}
+\newcommand*{\miniframesoff}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframesoff}
+
+\if@doSectionPage
+	\setbeamerfont{title}{family=\sffamily, series=\sffamily, size=\huge}%
+%
+	\newlength{\sectionpagepadding}%
+	\setlength{\sectionpagepadding}{2\baselineskip}%
+%
+	\newcounter{SectionNumber}%
+	\setcounter{SectionNumber}{0}%
+	\AtBeginSection[] {%
+		\ready{%
+			\miniframesoff%
+			\begingroup%
+			\setbeamercolor{background canvas}{parent=palette primary}%
+			\begin{frame}[plain]%
+			\stepcounter{SectionNumber}%
+			\begin{tikzpicture}[overlay, remember picture]%
+				% Debug lines
+				% \node[draw,red,very thick,minimum width=\paperwidth-\pgflinewidth,minimum height=				\paperheight-\pgflinewidth] at (current page.north west) [anchor=north west] (mynode) {};
+				% \draw[red] (mynode.north west)--(mynode.south east);
+				% \draw[red] (mynode.south west)--(mynode.north east);
+				\node at (0, -3.5cm + 1.65em * \arabic{SectionNumber}) [inner sep=0,xshift=3.5cm,anchor=base,white] (temp section){};%
+			\end{tikzpicture}%
+		%
+			{%
+				\sffamily\color{monokai-fg}%
+				\tableofcontents[currentsection,sectionstyle=show/shaded]%
+			}%
+		%
+			\begin{tikzpicture}[overlay, remember picture]%
+		    	\node[anchor = center] at (current page.center) {%
+		    		\tikz[] {%
+		    			\draw[%
+				    		fill = none,
+				    		draw = monokai-bg,
+				    		line width = \sectionpagepadding,
+				    		rounded corners=1.5\baselineskip,
+				    	] (0, 0)%
+					    	-- (0, \paperheight)%
+					    	-- (\paperwidth, \paperheight)%
+					    	-- (\paperwidth, 0)%
+					    	-- cycle;%
+					}%
+				};%
+			\end{tikzpicture}%
+			\end{frame}%
+			\endgroup%
+			\miniframeson%
+		}%
+	}%
+\else%
+	%
+\fi
+
+\tikzset{
+	Secbase/.style={%
+		% draw,
+		outer sep=0pt,
+		inner sep=0pt,
+		minimum height=1.5em,
+		opacity=#1,
+	},
+	Secnal/.style={%
+		Secbase=#1,
+		align=left,
+		anchor=north east,
+		below left=0mm and 0em of temp section.south east,
+		font=\footnotesize,
+	},
+	Subsecnal/.style={%
+		Secbase=#1,
+		left,
+		anchor=north west,
+		below right=1mm and 0em of true subsection.south west,
+	},
+}
+
+\defbeamertemplate*{section in toc}{fabulous}{%
+	\begin{tikzpicture}[remember picture, overlay]%
+		\node[Secnal=0.6,sectioncurrent] (temp section){\usebeamerfont{block title}\small\inserttocsection};%
+		\node[Secbase=1, below right=0em and 1em of temp section.south east, anchor=south west,minimum height=1.5em] (true section)%
+		{\parbox[t][1em]{0.6\linewidth}{\usebeamerfont{section title}\insertsectionhead}};%
+		\node[Secbase=1, anchor=north west, below right=0cm and 0mm of true section.south west, minimum height=0em](true subsection){\progressbar@sectionprogressbar};%
+		\coordinate[anchor=north west, below right=0cm and 1em of true subsection.south west](true subsection);%
+		\draw[opacity=0.4, sectioncurrent](temp section.south west) -- (temp section.south east);%
+	\end{tikzpicture}%
+}
+
+\defbeamertemplate*{section in toc shaded}{fabulous}[1][1]{%
+	\ifthenelse{\arabic{SectionNumber} > \inserttocsectionnumber}{%
+		\tikzstyle{sectioncolor}=[sectiondone]%
+	}{%
+		\tikzstyle{sectioncolor}=[sectiontodo]%
+	}%
+%
+	\begin{tikzpicture}[remember picture, overlay]%
+		\pgfmathparse{0.5 * (6 - abs(\arabic{SectionNumber}-\inserttocsectionnumber)) / 5}
+		\edef\opa{\pgfmathresult}%
+		\node[Secnal=1,opacity=\opa,sectioncolor](temp section){\inserttocsection};%
+	\end{tikzpicture}%
+}
+
+\defbeamertemplate*{subsection in toc}{fabulous}{%
+	\begin{tikzpicture}[remember picture, overlay]%
+		\node (true subsection)[Subsecnal=1] {\usebeamerfont{block title}\textbf{--}\hspace{0.5em}\inserttocsubsection};%
+	\end{tikzpicture}
+}
+
+\defbeamertemplate*{subsection in toc shaded}{fabulous}[1][0]{%
+	\begin{tikzpicture}[remember picture, overlay]%
+	\end{tikzpicture}
+}
