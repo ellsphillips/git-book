@@ -65,3 +65,19 @@
 	\pgfpathlineto{\pgfqpoint{\hatchdistance}{\hatchdistance}}
 	\pgfusepath{stroke}
 }
+
+
+
+\tikzset{
+	uipanel/.style={%
+		fill = white,
+		rounded corners = 0.75mm,
+		blur shadow = {%
+			shadow blur steps = 30,
+			shadow xshift = 0ex,
+			shadow yshift = 0ex,
+			shadow blur radius = 5mm,
+			shadow opacity = 10
+		}
+	}
+}
