@@ -1,0 +1,135 @@
+\def\maketitle{
+	\ifbeamer@inframe
+		\titlepage
+	\else
+		\frame[plain]{\titlepage}
+	\fi
+}
+
+%% Supervisor text
+\gdef\@supervisorstext{}
+
+\gdef\supervisor#1#2{%
+	\g@addto@macro\@supervisorstext{%
+		\item [#1]: #2
+	}
+}
+
+%% Supervisor text
+\gdef\@supervisorstext{}
+
+
+
+
+\def\titlepage{\usebeamertemplate{title page}}
+
+% Generate system random variable through
+% expl3 when using xelatex.
+\usepackage{expl3}
+\ExplSyntaxOn
+\cs_new_eq:NN \RandomSeed \sys_rand_seed:
+\ExplSyntaxOff
+
+\pgfkeys{/tikz/.cd,
+	slide dot width/.store in=\maxpointwidth,
+	slide dot width=3pt,
+	slide dot style type/.is choice,
+	slide dot style type/fill/.style={fill=\pointcolor},
+	slide dot style/.store in=\pointstyle,
+	slide dot style={/tikz/slide dot style type/fill},     
+	slide dot fill color/.store in=\pointcolor,
+	slide dot fill color=orange,
+}
+
+\pgfmathsetseed{\RandomSeed}
+\newcommand{\choosepointstyles}%
+{%
+	\pgfmathdeclarerandomlist{slidedottints}{%
+		{0.1}{0.4}{0.7}{1}%
+	}%
+	\pgfmathrandomitem{\slidedottint}{slidedottints}%
+	\edef\slidedottint{\slidedottint}%
+%
+	\pgfmathdeclarerandomlist{slidedotsizes}{%
+		{.25}{.5}{.75}{1}%
+	}%
+	\pgfmathrandomitem{\slidedotsize}{slidedotsizes}%
+	\edef\slidedotsize{\slidedotsize}%
+}
+
+\def\DOTMATRIX{%
+	{1,1,1,1,1,1,1,1,1},
+	{1,1,1,1,1,1,1,1,0},
+	{1,1,1,1,1,1,0,0,0},
+	{1,1,1,1,0,0,0,0,0},
+	{1,1,1,0,0,0,0,0,0},
+	{1,1,0,0,0,0,0,0,0},
+	{1,1,0,0,0,0,0,0,0},
+	{1,0,0,0,0,0,0,0,0},
+	{1,0,0,0,0,0,0,0,0}%
+}
+
+\colorlet{dot-0}{monokai-fg!10!monokai-bg}
+\colorlet{dot-1}{monokai-accent-colour}
+
+\newlength{\slideinfowidth}
+\setlength{\slideinfowidth}{0.3\paperwidth}
+
+\setbeamertemplate{title page}{%
+	\begin{tikzpicture}[overlay, remember picture]
+		\node[anchor = center] at (current page.center) {%
+			\tikz[] {%
+				\fill[monokai-fg!10!monokai-bg]%
+					(0, 0)%
+					rectangle%
+					(\paperwidth, \paperheight);%
+			%
+				\draw[%
+					fill = none,
+					draw = monokai-bg,
+					line width = 1.75\baselineskip,
+					rounded corners=1.5\baselineskip,
+				] (0, 0)%
+					-- (0, \paperheight)%
+					-- (\paperwidth, \paperheight)%
+					-- (\paperwidth, 0)%
+					-- cycle;%
+			}
+		};
+	%
+		\node[anchor = north west] at ([shift={(\baselineskip,-\baselineskip-2.5pt)}]current page.north west) {%
+			\resizebox{!}{\paperheight-2.5\baselineskip-5pt}{
+				\begin{tikzpicture}[scale=.1]
+					\foreach \DOTARRAY [count=\y] in \DOTMATRIX {
+						\foreach \DOT [count=\x] in \DOTARRAY {
+							\choosepointstyles%
+							\pgfmathsetmacro\pointwidth{\maxpointwidth*\slidedotsize}%
+							\draw[
+								draw=none,
+								fill=dot-\DOT,
+								opacity=\slidedottint,
+							] (\x*10,-\y*10) circle (\pointwidth);
+						}
+					}
+				\end{tikzpicture}
+			}
+		};
+	%
+		\node[anchor = south east] (slides-info) at ($(current page.south east)+(-0.66, 0.66)$) {%
+			\parbox{\slideinfowidth}{%
+				\raggedleft\bfseries\color{monokai-fg}%
+				\Large\inserttitle%
+				\vskip.5\baselineskip%
+				\hrule%
+				\vskip.5\baselineskip%
+				\small\href{mailto:\beamer@doctor@email}{\insertauthor}%
+				\vskip\baselineskip%
+				\insertdate%
+			}
+		};
+	%
+		\node[anchor = south] at ([yshift = \baselineskip]slides-info.north) {%
+			\includegraphics[width=0.15\paperwidth]{\beamer@doctor@logo}
+		};
+	\end{tikzpicture}
+}
