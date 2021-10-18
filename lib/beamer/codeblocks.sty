@@ -9,18 +9,18 @@
 			}{%
 				\includegraphics[%
 					width=0.8\textwidth,%
-				]{figures/code/code-block_#4.pdf}%
+				]{img/code/#4.pdf}%
 			}%
 		};
 	%
 		\node[outer box, fit=(codeimg), draw=#2, line width = #1mm] (codewrapper) {};
 	%
-		\node[anchor = north east, yshift = 0mm] at (codewrapper.north east) {%
-			\if\detokenize{#2}%
-				\relax%
-			\else%
-				\includegraphics[width = 5mm]{figures/logos/#2.pdf}%
-			\fi%
-		};
+%		\node[anchor = north east, yshift = 0mm] at (codewrapper.north east) {%
+%			\if\detokenize{#2}%
+%				\relax%
+%			\else%
+%				\includegraphics[width = 5mm]{figures/logos/#2.pdf}%
+%			\fi%
+%		};
 	\end{tikzpicture}
 }
