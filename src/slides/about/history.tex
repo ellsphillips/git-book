@@ -1,0 +1,62 @@
+\begin{frame}
+	\frametitle{History}
+	\monocolumn{
+		\begin{tikzpicture}
+			\node[] (history-logos) {
+				\begin{tikzpicture}
+					\onslide<1->{
+						\node[] (logo-1) {\fontfamily{cmr}\selectfont\bfseries\Huge\TeX};
+					}
+					\onslide<2->{
+						\node[anchor=west] (logo-2) at ([xshift=1cm]logo-1.east) {\includegraphics[height=0.1\paperheight]{img/logos/doctor.pdf}};
+					}
+					\onslide<3->{
+						\node[anchor=west] (logo-3) at ([xshift=1cm]logo-2.east) {\includegraphics[height=0.1\paperheight]{img/logos/pluto.pdf}};
+					}
+					\onslide<4->{
+						\node[anchor=west] (logo-4) at ([xshift=1cm]logo-3.east) {\includegraphics[height=0.1\paperheight]{img/logos/git.pdf}};
+					}
+				\end{tikzpicture}				
+			};
+		%
+			\node[anchor=north west] (history-notes) at ([shift={(0\baselineskip,0)}]history-logos.south west) {
+				\begin{tikzpicture}
+					\foreach \historydescription [count=\slideNumber from 1] in {
+						{%
+							\item Edited macros on ad hoc basis per project
+							\item Library was unstructured and decentralised
+						},%
+						{%
+							\item Saw gap in EMR and ONS-wide for data-driven reporting
+							\item Developed Python-assisted \TeX\ generator
+							\item Consolidated \LaTeX\ macros into library of packages, controlled by class and user-specified behaviour
+						},%
+						{%
+							\item Developed sophisticated markup library for plot and table generation in line with ONS house style and accessibility standards
+							\item Still under development, but now setup for monthly iterative releases following first official distribution
+						},%
+						{%
+							\item Composited book and slides classes using a shared API and packagae library
+							\item You're currently looking at the slides, but you can find all of this material plus more in the book render on my Github (feel free to star!)
+						}%
+					}{
+						\only<\slideNumber>{%
+							\node[anchor = north west] {%
+								\begin{varwidth}{0.6\paperwidth}
+									\small\color{monokai-fg}%
+									\begin{itemize}
+										\historydescription
+									\end{itemize}
+								\end{varwidth}
+							};
+						}
+					}
+				\end{tikzpicture}
+			};
+		\end{tikzpicture}
+	}
+%
+	\note{
+		%
+	}
+\end{frame}
