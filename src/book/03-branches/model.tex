@@ -62,7 +62,7 @@ Feature branches are used to develop new features for the upcoming or a distant 
 
 \noindent and when finished, features may be merged into \codeinline{develop} for inclusion in the upcoming release:
 
-\begin{git-bash}[switch to new-feature branch]
+\begin{git-bash}[finish new-feature branch]
     git checkout develop
     git merge --no-ff myfeature
     git branch -d myfeature
@@ -84,10 +84,38 @@ Where the \codeinline{--no-ff flag} ensures the merge creates a new commit objec
 
 
 
+\subsection{Release branches}
 
+Release branches support preparation of a new production release facilitating last-minute corrections and preparing meta-data for a release (version number, build dates, etc.) ready for handover to \codeinline{develop}.
 
+When \codeinline{develop} reflects the desired state of the new release, create a \codeinline{release} branch from \codeinline{develop} that includes all completed features – no partial features. It is exactly at the start of a release branch that the upcoming release gets assigned a version number -- not any earlier. 
 
+\begin{git-bash}[switch to release branch]
+    git checkout -b release-1.2 develop
+    ./bump-version.sh 1.2
+    git commit -am "Bumped version number to 1.2"
+\end{git-bash}
 
+After creating a new branch and switching to it, we bump the version number. This new branch may exist there for a while, until the release may be rolled out. Once all bug fixes have been applied in this branch, the bumped version number is committed. Adding large new features here is strictly prohibited. They \textbf{must} be merged into \codeinline{develop}, and therefore, wait for the next big release. \newline
+
+When the state of release is ready to become a real release:
+
+\begin{enumerate}
+	\item Merge onto \codeinline{master}, since every commit on \codeinline{master} is a new release by definition.
+	\item \codeinline{tag} that commit on \codeinline{master} for easy future reference to this historical version
+	\item Merge the changes made on the \codeinline{release} branch onto \codeinline{develop} to carry these bug fixes into future releases.
+\end{enumerate}
+
+\begin{git-bash}[finish release branch]
+    git checkout develop
+    git merge --no-ff release-1.2
+\end{git-bash}
+
+Completing these steps will most likely give rise to a merge conflict since the version number has been updated. Fix this and commit to finalise the release process. The \codeinline{release} branch may now be removed.
+
+\begin{git-bash}[finish release branch]
+    git branch -d release-1.2
+\end{git-bash}
 
 
 
