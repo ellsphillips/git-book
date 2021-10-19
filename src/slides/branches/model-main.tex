@@ -1,0 +1,105 @@
+\begin{frame}%
+    \frametitle{Model}%
+    \monocolumn{\resizebox{.9\paperwidth}{!}{
+    	\begin{tikzpicture}
+	    	\node[rotate=90] (git-graph) {%
+	   			\begin{tikzpicture}[%
+	   				git graph,
+	   				remember picture,
+	   				]
+	   				\matrix[%
+		   				column sep=-.5em,
+		   				row sep=.5em,
+		   				column 1/.style = {nodes={%
+	   						style=develop,
+	   						xshift=-1.35\columnsep,
+		   				}},
+		   				column 2/.style = {nodes={%
+	   						style=master,
+	   						xshift=-1.35\columnsep,
+		   				}},
+		   				ampersand replacement=\&
+	  				] (git-graph-matrix) {%
+	   					\ghost{develop}     \& \ghost{master}     \\
+	   					                    \& \commit{master-01} \\
+	   					\commit{develop-02} \&                    \\
+	   					\commit{develop-03} \&                    \\
+	   					\commit{develop-04} \&                    \\
+	   					\commit{develop-05} \&                    \\
+	   					\commit{develop-06} \& \commit{master-06} \\
+	   					\commit{develop-07} \&                    \\
+	   					\commit{develop-08} \& \commit{master-08} \\
+	   					\commit{develop-09} \&                    \\
+	   				};
+   				%
+   					\foreach \branch/\branchcolour in {%
+   						master/monokai-blue,
+   						develop/monokai-yellow%
+   					}{%
+						\node[%
+	 						anchor = east,
+	 						inner sep = 2pt,
+	 						baseline = (subsection-text.base),
+	 						font = \fontsize{4}{5}\selectfont,
+	 						rotate = -90,
+	 						xshift = -.5em,
+						] (branch-label) at (\branch.west) {%
+							\fontfamily{JetBrainsMono-SemiBold}\selectfont%
+							\defaultfontfeatures{LetterSpace=10}%
+							\ttfamily\bfseries\color{monokai-bg}%
+							\strut\branch
+						};
+					%
+ 						\begin{pgfonlayer}{background}%
+ 							\fill[%
+	  							\branchcolour,
+	  							rounded corners = 1pt,
+ 							]%
+	  							([shift={(-1.75pt,0pt)}]branch-label.north west)%
+	  							rectangle%
+	  							([shift={(2.25pt,0pt)}]branch-label.south east);%
+ 						%
+ 							\draw[%
+	 							monokai-grey-100,
+	 							ultra thin,
+ 							]%
+	 							(\branch)%
+	 							--%
+	 							([yshift=-1em]\branch|-develop-09) node [] {};
+ 						\end{pgfonlayer}%
+   					}
+ 				%
+   					\begin{pgfonlayer}{background}%
+	   					\foreach \fromcommit/\tocommit in {%
+	   						master-01/master-06,
+	   						master-06/master-08,
+						%
+	   						master-01/develop-02,
+	   						develop-02/develop-03,
+	   						develop-03/develop-04,
+	   						develop-04/develop-05,
+	   						develop-05/develop-06,
+	   						develop-05/master-06,
+	   						develop-06/develop-07,
+	   						develop-07/develop-08,
+	   						develop-07/master-08,
+	   						develop-08/develop-09%
+	   					}{
+	   						\connect{\fromcommit}{\tocommit};
+	   					}
+	   				\end{pgfonlayer}%
+	   			\end{tikzpicture}%
+	   		};
+   		%
+   			\draw[%
+   				monokai-grey-100,
+   				->,
+   				>=stealth,
+   			]%
+	   			([shift={(12.5mm,-2.5mm)}]git-graph.north east)%
+	   			--%
+	   			([shift={(-2.5mm,-2.5mm)}]git-graph.south east)%
+	   			node[midway, above] {\tiny Time};
+   		\end{tikzpicture}
+	}}
+\end{frame}%
