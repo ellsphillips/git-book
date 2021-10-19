@@ -3,3 +3,37 @@
 \noindent TL;DR – yes, it definitely is. \newline
 
 Understanding how to use Git and GitHub effectively is one of the most important skills for the modern developer. This book aims to equip you with the fundamentals of Git with hands-on example. By following along, you'll learn to use Git to manage your software projects and collaborate with other developers.
+
+
+
+\subsection{What is Git?}
+
+Git considers a repo’s data as a series of snapshots. Each commit, Git captures the current state of your filesystem and stores a reference to that snapshot. For efficiency, Git links any unchanged files to the previous identical file it has already stored.
+
+
+
+\subsection{Integrity}
+
+Everything in Git is checksummed, using 40-character SHA-1 hash calculated based on the contents of a file or directory structure, before it is stored and is then referred to by that checksum.
+
+\begin{center}
+	\begin{tikzpicture}
+		\node[inner sep = 2pt] (hash-text) {%
+			\ttfamily\bfseries\small\color{monokai-yellow}%
+			\strut8eb4fc5d221ff6b741afc209f14008e31adbe431
+		};
+	%
+		\begin{pgfonlayer}{background}%
+			\fill[%
+				code-background,
+				rounded corners = 1pt,
+			]%
+				([shift={(-2pt,1pt)}]hash-text.north west)%
+				rectangle%
+				([shift={(2pt,1pt)}]hash-text.south east);%
+		\end{pgfonlayer}%
+	\end{tikzpicture}
+\end{center}
+
+This functionality is built into Git at the lowest levels and is integral to its philosophy: you can’t change the contents of any file or directory and hence lose information in transit or get file corruption without Git being able to detect it.
+
