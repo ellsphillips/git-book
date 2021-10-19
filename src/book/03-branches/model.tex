@@ -101,8 +101,8 @@ After creating a new branch and switching to it, we bump the version number. Thi
 When the state of release is ready to become a real release:
 
 \begin{enumerate}
-	\item Merge onto \codeinline{master}, since every commit on \codeinline{master} is a new release by definition.
-	\item \codeinline{tag} that commit on \codeinline{master} for easy future reference to this historical version
+	\item Merge onto \codeinline{master}, since every commit on \codeinline{master} is a new release by definition,
+	\item Then \codeinline{tag} that commit on \codeinline{master} for easy future reference to this historical version,
 	\item Merge the changes made on the \codeinline{release} branch onto \codeinline{develop} to carry these bug fixes into future releases.
 \end{enumerate}
 
@@ -116,6 +116,64 @@ Completing these steps will most likely give rise to a merge conflict since the 
 \begin{git-bash}[finish release branch]
     git branch -d release-1.2
 \end{git-bash}
+
+
+
+\subsection{Hotfix branches}
+
+You can consider \codeinline{hotfix} as critical \codeinline{release} branches: preparation spaces for new production releases with urgency to act on a bug(s) of a live production version. When a bug is identified for immediate resolve, spawn a new \codeinline{hotfix} branch from the corresponding tag on \codeinline{master} that marks the production version.
+
+This allows the development team, who operate on the \codeinline{develop} branch and below, to maintain momentum whilst an assignee prepares the production hotfix. \newline
+
+If the current production release, say version 1.2, is live with bug that require immediate attention, a \codeinline{hotfix} branch may be created from \codeinline{master}.
+
+For example, say version 1.2 is the current production release running live and causing troubles due to a severe bug. But changes on \codeinline{develop} are yet unstable. We may then branch off a \codeinline{hotfix} branch and start fixing the problem:
+
+\begin{git-bash}[switch to hotfix branch]
+    git checkout -b hotfix-1.2.1 master
+    ./bump-version.sh 1.2.1
+    git commit -a -m "Bumped version number to 1.2.1"
+\end{git-bash}
+
+\emph{Ensure you bump the version number after branching off!} Then, fix the bug and commit the fix in one or more separate commits.
+
+\begin{git-bash}[commit hotfix]
+    git commit -m "Fixed severe production problem"
+\end{git-bash}
+
+Similar to completing the \codeinline{release} branch process, once the critical bug has been fixed, \codeinline{hotfix} needs to be merged back both into \codeinline{master} and \codeinline{develop} in order to safeguard that the bugfix is included in the next release.
+
+The key difference between the two patterns is, \emph{when a \codeinline{release} branch currently exists, the hotfix changes need to be merged into that \codeinline{release} branch, instead of \codeinline{develop}}.
+
+Back-merging the bugfix into the release branch will eventually result in the bugfix being merged into \codeinline{develop} too, when the release branch is finished. If work in \codeinline{develop} immediately requires this bugfix and cannot wait for the release branch to be finished, you may safely merge the bugfix into \codeinline{develop} now already as well.
+
+The steps follow:
+\begin{enumerate}
+	\item Update master and tag the release,
+\begin{git-bash}[finish release branch]
+    git checkout master
+    git merge --no-ff hotfix-1.2.1
+    git tag -a 1.2.1
+\end{git-bash}
+	
+	\item Include the bugfix in develop,
+\begin{git-bash}[switch from hotfix to develop]
+    git checkout develop
+    git merge --no-ff hotfix-1.2.1
+\end{git-bash}
+
+	\item Remove the temporary branch.
+\begin{git-bash}[remove hotfix branch]
+    git branch -d hotfix-1.2.1
+\end{git-bash}
+\end{enumerate}
+
+
+
+
+
+
+
 
 
 
