@@ -1,4 +1,4 @@
-The model I demonstrate here, named \emph{git-flow} originates from 2010 -- not very long after Git itself came into being. It has become popular in its adoption and development in many software teams, perhaps even considered standard protocol. This model is geared more towards continuous delivery and integration, such as scheduled data releases, web development etc. where explicit versioning or multiple version support is required.
+The model I demonstrate here, named \emph{git-flow}, originates from 2010 -- not very long after Git itself came into being. It has become popular in its adoption and development in many software teams, perhaps even considered standard protocol. This model is geared more towards continuous delivery and integration, such as scheduled data releases, web development etc. where explicit versioning or multiple version support is required.
 
 \vspace{11\baselineskip}%
 \begin{figure}[H]
@@ -14,7 +14,7 @@ The model I demonstrate here, named \emph{git-flow} originates from 2010 -- not 
 The central repo holds two main branches with an infinite lifetime, master and develop, where develop runs parallel to the master branch. By definition, consider these two branches for source code of HEAD as:
 
 \begin{itemize}
-	\item origin/master: always reflects a production-ready state.
+	\item origin/master: always reflects a production-ready state,
 	\item origin/develop: always reflects a state with the latest delivered development changes for the next release, enabling automatic production/CI builds overnight.
 \end{itemize}
 
@@ -37,7 +37,7 @@ This development model’s supporting branches lay adjacent to the main branches
 	\item Parallel development between team members,
 	\item Ease of feature-tracking,
 	\item Production release preparation,
-	\item Effective fixing of live production problems
+	\item Effective fixing of live production problems.
 \end{itemize}
 
 \noindent These branches are \codeinline{feature}, \codeinline{release}, and \codeinline{hotfix}. \newline
@@ -71,13 +71,15 @@ Feature branches are used to develop new features for the upcoming or a distant 
 
 Where the \codeinline{--no-ff flag} ensures the merge creates a new commit object, even if the merge could be performed with a fast-forward. This prevents information loss about the historical existence of a feature branch and groups together all commits that together added the feature.
 
-\hfill\textcolor{red}{\ttfamily --no-ff demo}\hfill \newline
+\begin{center}
+	\textcolor{red}{\ttfamily --no-ff demo}
+\end{center}
 
-\noindent Whilst --no-ff creates a few more (empty) commit objects, it enables:
+\noindent Whilst \codeinline{--no-ff} creates a few more (empty) commit objects, it enables:
 
 \begin{itemize}
 	\item Visibility of commit objects together have implemented a feature in the Git history, eliminating laborious log messages traversal,
-	\item Reverting a whole feature (i.e. a group of commits), with insight and reason from the Git history
+	\item Reverting a whole feature (i.e. a group of commits), with insight and reason from the Git history.
 \end{itemize}
 
 
