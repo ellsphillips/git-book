@@ -96,3 +96,14 @@
 \newcommand{\draw@chaptersfooter}{%
 	\pagestyle{empty}
 }
+
+
+
+\renewcommand\labelitemi{%
+	\raisebox{1.5pt}{%
+		\tikz\fill[%
+			monokai-accent-colour,
+			rounded corners = .75pt,
+		] (-1.5pt, -1.5pt) rectangle (1.5pt, 1.5pt);
+	}%
+}
