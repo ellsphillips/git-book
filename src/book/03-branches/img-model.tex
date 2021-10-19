@@ -1,0 +1,214 @@
+\newcommand\commit[2][master]{
+	\node[commit, #1] (#2) {};
+	\node[clabel] at (#2) {};
+}
+\newcommand\ghost[1]{
+	\coordinate (#1);
+}
+\newcommand\connect[2]{
+	\draw (#1) to[out=-90,in=90] (#2);
+}
+
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+\tikzset{
+	git graph/.append style={%
+		commit/.style={draw,circle,fill=white,inner sep=0pt,minimum size=5pt},
+		clabel/.style={right,outer sep=1em},
+		%
+		master/.style={
+			commit,
+			draw=none,
+			fill=monokai-blue,
+		},
+		hotfix/.style={
+			commit,
+			draw=none,
+			fill=monokai-pink,
+		},
+		release/.style={
+			commit,
+			draw=none,
+			fill=monokai-green,
+		},
+		develop/.style={
+			commit,
+			draw=none,
+			fill=monokai-yellow,
+		},
+		feature/.style={
+			commit,
+			draw=none,
+			fill=monokai-orange,
+		},
+	}
+}
+
+
+
+\begin{tikzpicture}
+	\node[rotate=90] (git-graph) {%
+		\begin{tikzpicture}[%
+			git graph,
+			remember picture,
+		]
+			\matrix[%
+				column sep=-.5em,
+				row sep=.5em,
+				column 1/.style = {nodes={%
+					style=feature,
+					xshift=-1.35\columnsep,
+				}},
+				column 2/.style = {nodes={%
+					style=feature,
+					xshift=-1.35\columnsep,
+				}},
+				column 3/.style = {nodes={%
+					style=develop,
+					xshift=-1.35\columnsep,
+				}},
+				column 4/.style = {nodes={%
+					style=release,
+					xshift=-1.35\columnsep,
+				}},
+				column 5/.style = {nodes={%
+					style=hotfix,
+					xshift=-1.35\columnsep,
+				}},
+				column 6/.style = {nodes={%
+					style=master,
+					xshift=-1.35\columnsep,
+				}},
+				ampersand replacement=\&
+		] (git-graph-matrix) {%
+				\ghost{feature-1}     \& \ghost{feature-2}   \& \ghost{develop}     \& \ghost{release}    \& \ghost{hotfix}     \& \ghost{master}     \\
+           \&                       \&                     \&                     \&                    \& \commit{master-01} \\
+           \&                       \& \commit{develop-02} \&                     \&                    \&                    \\
+           \&                       \& \commit{develop-03} \&                     \&                    \&                    \\
+           \&                       \& \commit{develop-04} \&                     \&                    \&                    \\
+           \& \commit{feature-2-05} \& \commit{develop-05} \&                     \& \commit{hotfix-05} \&                    \\
+				\commit{feature-1-06} \& \commit{feature-2-06} \&                     \&                     \&                    \& \commit{master-06} \\
+				\commit{feature-1-07} \&                       \& \commit{develop-07} \&                     \&                    \&                    \\
+           \& \commit{feature-2-08} \&                     \&                     \&                    \&                    \\
+           \&                       \& \commit{develop-09} \&                     \&                    \&                    \\
+           \&                       \&                     \& \commit{release-10} \&                    \&                    \\
+           \&                       \&                     \& \commit{release-11} \&                    \&                    \\
+           \&                       \& \commit{develop-12} \&                     \&                    \&                    \\
+           \& \commit{feature-2-13} \&                     \& \commit{release-13} \&                    \&                    \\
+				\commit{feature-1-14} \&                       \&                     \& \commit{release-14} \&                    \&                    \\
+           \& \commit{feature-2-15} \& \commit{develop-15} \&                     \&                    \&                    \\
+				\commit{feature-1-16} \& \commit{feature-2-16} \&                     \&                     \&                    \& \commit{master-16} \\
+           \&                       \&                     \&                     \&                    \&                    \\
+           \&                       \& \commit{develop-18} \&                     \&                    \&                    \\
+           \&                       \&                     \& \commit{release-19} \&                    \&                    \\
+           \&                       \& \commit{develop-20} \&                     \&                    \&                    \\
+           \&                       \&                     \&                     \&                    \& \commit{master-21} \\
+			};
+		%
+			\foreach \branch/\branchcolour in {%
+				master/monokai-blue,
+				hotfix/monokai-pink,
+				release/monokai-green,
+				develop/monokai-yellow,
+				feature-2/monokai-orange,
+				feature-1/monokai-orange%
+			}{%
+	\node[%
+			anchor = east,
+			inner sep = 2pt,
+			baseline = (subsection-text.base),
+			font = \fontsize{4}{5}\selectfont,
+			rotate = -90,
+			xshift = -.5em,
+	] (branch-label) at (\branch.west) {%
+		\fontfamily{JetBrainsMono-SemiBold}\selectfont%
+		\defaultfontfeatures{LetterSpace=10}%
+		\ttfamily\bfseries\color{monokai-bg}%
+		\strut\branch
+	};
+%
+		\begin{pgfonlayer}{background}%
+			\fill[%
+					\branchcolour,
+					rounded corners = 1pt,
+			]%
+					([shift={(-1.75pt,0pt)}]branch-label.north west)%
+					rectangle%
+					([shift={(2.25pt,0pt)}]branch-label.south east);%
+		%
+			\draw[%
+				monokai-grey-100,
+				ultra thin,
+			]%
+				(\branch)%
+				--%
+				([yshift=-1em]\branch|-master-21) node [] {};
+		\end{pgfonlayer}%
+			}
+%
+			\begin{pgfonlayer}{background}%
+				\foreach \fromcommit/\tocommit in {%
+					master-01/master-06,
+					master-06/master-16,
+					master-16/master-21,
+					master-01/hotfix-05,
+	%
+					master-01/hotfix-05,
+					hotfix-05/develop-07,
+					hotfix-05/master-06,
+	%
+					master-01/develop-02,
+					develop-02/develop-03,
+					develop-03/develop-04,
+					develop-04/develop-05,
+					develop-05/develop-07,
+					develop-07/develop-09,
+					develop-09/develop-12,
+					develop-12/develop-15,
+					develop-12/feature-2-13,
+					develop-15/develop-18,
+					develop-18/develop-20,
+					develop-18/release-19,
+				%
+					develop-09/release-10,
+					release-10/release-11,
+					release-11/release-13,
+					release-11/develop-12,
+					release-13/release-14,
+					release-14/develop-15,
+					release-14/master-16,
+					release-19/develop-20,
+					release-19/master-21,
+				%
+					develop-04/feature-2-05,
+					feature-2-05/feature-2-06,
+					feature-2-06/feature-2-08,
+					feature-2-08/develop-09,
+					feature-2-13/feature-2-15,
+					feature-2-15/feature-2-16,
+					feature-2-16/develop-18,
+				%
+					develop-04/feature-1-06,
+					feature-1-06/feature-1-07,
+					feature-1-07/feature-1-14,
+					feature-1-14/feature-1-16,
+					feature-1-16/develop-18%
+				}{
+					\connect{\fromcommit}{\tocommit};
+				}
+			\end{pgfonlayer}%
+		\end{tikzpicture}%
+	};
+%
+	\draw[%
+		monokai-grey-100,
+		->,
+		>=stealth,
+	]%
+		([shift={(12.5mm,-2.5mm)}]git-graph.north east)%
+		--%
+		([shift={(-2.5mm,-2.5mm)}]git-graph.south east)%
+		node[midway, above] {\tiny Time};
+\end{tikzpicture}
