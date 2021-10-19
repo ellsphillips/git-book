@@ -48,3 +48,48 @@ Remember, all Git branches are technically the same – even \codeinline{master}
 
 
 
+\subsection{Feature branches}
+
+Feature branches are used to develop new features for the upcoming or a distant future release. They exist as long as the feature is in development and must either eventually be merged back into \codeinline{develop}, or discarded. \newline
+
+\noindent Typically, feature branches exist in developer repos only, not in \codeinline{origin}. \newline
+
+\noindent When starting work on a new feature, branch off from the \codeinline{develop} branch.
+
+\begin{git-bash}[switch to new-feature branch]
+    git checkout -b new-feature develop
+\end{git-bash}
+
+\noindent and when finished, features may be merged into \codeinline{develop} for inclusion in the upcoming release:
+
+\begin{git-bash}[switch to new-feature branch]
+    git checkout develop
+    git merge --no-ff myfeature
+    git branch -d myfeature
+    git push origin develop
+\end{git-bash}
+
+Where the \codeinline{--no-ff flag} ensures the merge creates a new commit object, even if the merge could be performed with a fast-forward. This prevents information loss about the historical existence of a feature branch and groups together all commits that together added the feature.
+
+\hfill\textcolor{red}{\ttfamily --no-ff demo}\hfill \newline
+
+\noindent Whilst --no-ff creates a few more (empty) commit objects, it enables:
+
+\begin{itemize}
+	\item Visibility of commit objects together have implemented a feature in the Git history, eliminating laborious log messages traversal,
+	\item Reverting a whole feature (i.e. a group of commits), with insight and reason from the Git history
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
