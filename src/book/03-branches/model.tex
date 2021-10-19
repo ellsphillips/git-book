@@ -27,3 +27,24 @@ The central repo holds two main branches with an infinite lifetime, master and d
 
 When stable and release-ready, \codeinline{develop} branch source code is merged back into \codeinline{master} and tagged with a release number, generating a new production release \emph{by definition}. Keeping this strict enables use of Git hooks automatically build and roll-out software to our production servers per commit to \codeinline{master}.
 
+
+
+\subsection{Supporting branches}
+
+This development model’s supporting branches lay adjacent to the main branches \codeinline{master} and \codeinline{develop}, enabling;
+
+\begin{itemize}
+	\item Parallel development between team members,
+	\item Ease of feature-tracking,
+	\item Production release preparation,
+	\item Effective fixing of live production problems
+\end{itemize}
+
+\noindent These branches are \codeinline{feature}, \codeinline{release}, and \codeinline{hotfix}. \newline
+
+Unlike the main branches, these branches are designed to have finite lifetime, and each have a specific purpose and are bound to strict rules to accept particular branches as origin or target destination on merging.
+
+Remember, all Git branches are technically the same – even \codeinline{master} is just an ordinary branch, created by default and most people opt to keep it – but instead these branch types are categorized by how we use them.
+
+
+
