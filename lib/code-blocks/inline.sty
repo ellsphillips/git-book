@@ -9,10 +9,16 @@
 	\relax\tikz[baseline=(code.base)]{%
 		\node[] (code) {%
 			\lstinline[%
-				backgroundcolor=\color{code-background},%
-				language=git-bash,%
-				keepspaces=true,%
-				basicstyle=\codefontsize\ttfamily\bfseries\color{white},%
+				backgroundcolor=\color{code-background},
+				language=git-bash,
+				keepspaces=true,
+				basicstyle=\codefontsize\normalfont\ttfamily\bfseries\color{white},
+				literate=
+					{master}{{{\color{monokai-blue}master}}}6
+					{hotfix}{{{\color{monokai-pink}hotfix}}}6
+					{release}{{{\color{monokai-green}release}}}7
+					{develop}{{{\color{monokai-yellow}develop}}}7
+					{feature}{{{\color{monokai-orange}feature}}}7,
 			]{#2}%
 		};%
 	%
