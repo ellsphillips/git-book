@@ -31,7 +31,7 @@ When stable and release-ready, \codeinline{develop} branch source code is merged
 
 \subsection{Supporting branches}
 
-This development model’s supporting branches lay adjacent to the main branches \codeinline{master} and \codeinline{develop}, enabling;
+This development model's supporting branches lay adjacent to the main branches \codeinline{master} and \codeinline{develop}, enabling;
 
 \begin{itemize}
 	\item Parallel development between team members,
@@ -71,9 +71,12 @@ Feature branches are used to develop new features for the upcoming or a distant 
 
 Where the \codeinline{--no-ff flag} ensures the merge creates a new commit object, even if the merge could be performed with a fast-forward. This prevents information loss about the historical existence of a feature branch and groups together all commits that together added the feature.
 
-\begin{center}
-	\textcolor{red}{\ttfamily --no-ff demo}
-\end{center}
+\vspace{12\baselineskip}%
+\begin{figure}[H]
+	\centering
+	\noindent\resizebox{.66\textwidth}{!}{\input{src/book/03-branches/img-model-feature}}
+	\caption[Main branches]{Demonstration of fast-forwarding \codeinline{feature} branch merges onto \codeinline{develop} branches.}
+\end{figure}
 
 \noindent Whilst \codeinline{--no-ff} creates a few more (empty) commit objects, it enables:
 
@@ -88,7 +91,7 @@ Where the \codeinline{--no-ff flag} ensures the merge creates a new commit objec
 
 Release branches support preparation of a new production release facilitating last-minute corrections and preparing meta-data for a release (version number, build dates, etc.) ready for handover to \codeinline{develop}.
 
-When \codeinline{develop} reflects the desired state of the new release, create a \codeinline{release} branch from \codeinline{develop} that includes all completed features – no partial features. It is exactly at the start of a release branch that the upcoming release gets assigned a version number -- not any earlier. 
+When \codeinline{develop} reflects the desired state of the new release, create a \codeinline{release} branch from \codeinline{develop} that includes all completed features, ie. No partial features. It is exactly at the start of a release branch that the upcoming release gets assigned a version number -- not any earlier. 
 
 \begin{git-bash}[switch to release branch]
     git checkout -b release-1.2 develop
