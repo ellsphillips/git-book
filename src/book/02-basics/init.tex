@@ -7,14 +7,14 @@
 
 \subsection{Committing files}
 
-The following commands help you quicken and amend your commits prior to pushing to a remote repository
+Some of teh first commands you learn with Git will be to initialise and track your working directory locally.
 
 \begin{git-bash}[basic commit]
     git add .
     git commit -m "Your message"
 \end{git-bash}
 
-You can skip the git add using the -am flag to automatically add all the files in the cwd
+To quicken your time on the command line, you can skip the \codeinline{git add} step using the \codeinline{-am} flag with \codeinline{git commit} to automatically add all the files in the current working directory:
 
 \begin{git-bash}[quick commit]
     git commit -am "Your message"
@@ -26,27 +26,27 @@ If you've committed with a spelling error, update the latest commit message with
     git commit --amend -m "Updated message"
 \end{git-bash}
 
-or if you've forgotten to add a file to your latest commit:
+\noindent or if you've forgotten to add a file to your latest commit:
 
 \begin{git-bash}[add a file onto a commit]
     git add extra_file.txt
     git commit --amend --no-edit
 \end{git-bash}
 
-where the --no-edit flag retains the original commit message
+\noindent where the \codeinline{--no-edit} flag retains the original commit message.
 
 
 
 \subsection{Stash}
 
-If you have changes that almost work but they can't really be committed yet because they break everything else or aren't up to par with the code style, or you just don't want your colleagues to see it yet, git stash will remove the changes from your working directory and save them for later use without committing them to the repo
+If you have changes that almost work but they can't really be committed yet because they break everything else or aren't up to par with the code style, or you just don't want your colleagues to see it yet, \codeinline{git stash} will remove the changes from your working directory and save them for later use without committing them to the repo
 
 \begin{git-bash}[basic stash]
     git stash
     git pop
 \end{git-bash}
 
-You can assign the stash a name to reference it later with git pop when you're ready to add those changes back into your code. Use git stash list to view all aliased stashes, find the stash you can to retrieve followed by git stash apply with the corresponding index to use it
+You can assign the stash a name to reference it later with \codeinline{git pop} when you're ready to add those changes back into your code. Use \codeinline{git stash list} to view all aliased stashes, find the stash you can to retrieve followed by \codeinline{git stash apply} with the corresponding index to use it
 
 \begin{git-bash}[list stash]
     git stash save coolstuff
@@ -60,14 +60,14 @@ You can assign the stash a name to reference it later with git pop when you're r
 
 Imagine you have a remote repository on GitHub and a local version on your machine you've been making changes to, but things haven't been going too well and you just want to go back to the original state on the remote repo.
 
-First do a git fetch to grab the latest code in the remote repo, then use reset with the --hard flag to overwrite your local code with the remote code, but be careful, your local changes will be lost forever.
+First do a \codeinline{git fetch} to grab the latest code in the remote repo, then use \codeinline{reset} with the \codeinline{--hard} flag to overwrite your local code with the remote code, but be careful, your local changes will be lost forever.
 
 \begin{git-bash}[ditch local code]
     git fetch origin
     git reset --hard origin/master
 \end{git-bash}
 
-But you might still be left with some random untracked files and build artefacts here or there. Use the git clean command to remove those files as well
+But you might still be left with some random untracked files and build artefacts here or there. Use the \codeinline{git clean} command to remove those files as well
 
 \begin{git-bash}[ditch local code]
     git clean -df
@@ -77,7 +77,7 @@ But you might still be left with some random untracked files and build artefacts
 
 \subsection{Checkout}
 
-If you recently switch out of a branch and forgot its name, you can use git checkout followed by a dash to go directory back into the previously branch you were working on
+If you recently switch out of a branch and forgot its name, you can use \codeinline{git checkout} followed by a dash to go directory back into the previously branch you were working on
 
 \begin{git-bash}[switch back to previous branch]
     git checkout -
@@ -87,13 +87,13 @@ If you recently switch out of a branch and forgot its name, you can use git chec
 
 \subsection{Switch}
 
-If you find yourself working on a branch and need to move your current untracked changes to another (new or existing) branch, then git switch is the perfect use case for when you just want to test something, but you're not sure it's worth it.
+If you find yourself working on a branch and need to move your current untracked changes to another (new or existing) branch, then \codeinline{git switch} is the perfect use case for when you just want to test something, but you're not sure it's worth it.
 
 \begin{git-bash}[switch back to previous branch]
     git switch -c new-branch
 \end{git-bash}
 
-You can achieve the same effect with git checkout -b new-branch, but checkout does more than just switching branches, so switch was created for specificity.
+You can achieve the same effect with \codeinline{git checkout -b new-branch}, but \codeinline{checkout} does more than just switching branches, so \codeinline{switch} was created for specificity.
 
 
 
