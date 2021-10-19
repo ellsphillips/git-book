@@ -2,11 +2,28 @@ The model I demonstrate here, named \emph{git-flow} originates from 2010 -- not 
 
 \vspace{11\baselineskip}%
 \begin{figure}[H]
+	\centering
 	\noindent\resizebox{\textwidth}{!}{\input{src/book/03-branches/img-model}}
 	\caption[A successful Git branching model]{Demonstration of the industry-standard \emph{git-flow} branching model.}
 \end{figure}
 
 
 
+\subsection{The main branches}
 
+The central repo holds two main branches with an infinite lifetime, master and develop, where develop runs parallel to the master branch. By definition, consider these two branches for source code of HEAD as:
+
+\begin{itemize}
+	\item origin/master: always reflects a production-ready state.
+	\item origin/develop: always reflects a state with the latest delivered development changes for the next release, enabling automatic production/CI builds overnight.
+\end{itemize}
+
+\vspace{6\baselineskip}%
+\begin{figure}[H]
+	\centering
+	\noindent\resizebox{.66\textwidth}{!}{\input{src/book/03-branches/img-model-main}}
+	\caption[Main branches]{Main branches \codeinline{master} and \codeinline{develop} of the \emph{git-flow} branching model.}
+\end{figure}
+
+When stable and release-ready, \codeinline{develop} branch source code is merged back into \codeinline{master} and tagged with a release number, generating a new production release \emph{by definition}. Keeping this strict enables use of Git hooks automatically build and roll-out software to our production servers per commit to \codeinline{master}.
 
