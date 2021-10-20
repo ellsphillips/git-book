@@ -101,7 +101,7 @@ When \codeinline{develop} reflects the desired state of the new release, create 
 
 After creating a new branch and switching to it, we bump the version number. This new branch may exist there for a while, until the release may be rolled out. Once all bug fixes have been applied in this branch, the bumped version number is committed. Adding large new features here is strictly prohibited. They \textbf{must} be merged into \codeinline{develop}, and therefore, wait for the next big release. \newline
 
-When the state of release is ready to become a real release:
+\noindent When the state of release is ready to become a real release:
 
 \begin{enumerate}
 	\item Merge onto \codeinline{master}, since every commit on \codeinline{master} is a new release by definition,
@@ -146,9 +146,10 @@ Similar to completing the \codeinline{release} branch process, once the critical
 
 The key difference between the two patterns is, \emph{when a \codeinline{release} branch currently exists, the hotfix changes need to be merged into that \codeinline{release} branch, instead of \codeinline{develop}}.
 
-Back-merging the bugfix into the release branch will eventually result in the bugfix being merged into \codeinline{develop} too, when the release branch is finished. If work in \codeinline{develop} immediately requires this bugfix and cannot wait for the release branch to be finished, you may safely merge the bugfix into \codeinline{develop} now already as well.
+Back-merging the bugfix into the release branch will eventually result in the bugfix being merged into \codeinline{develop} too, when the release branch is finished. If work in \codeinline{develop} immediately requires this bugfix and cannot wait for the release branch to be finished, you may safely merge the bugfix into \codeinline{develop} now already as well. \newline
 
-The steps follow:
+\noindent The steps follow:
+
 \begin{enumerate}
 	\item Update master and tag the release,
 \begin{git-bash}[finish release branch]
@@ -157,7 +158,7 @@ The steps follow:
     git tag -a 1.2.1
 \end{git-bash}
 	
-	\item Include the bugfix in develop,
+	\item Include the bugfix in \codeinline{develop},
 \begin{git-bash}[switch from hotfix to develop]
     git checkout develop
     git merge --no-ff hotfix-1.2.1
