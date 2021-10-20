@@ -11,7 +11,7 @@ The model I demonstrate here, named \emph{git-flow}, originates from 2010 -- not
 
 \subsection{The main branches}
 
-The central repo holds two main branches with an infinite lifetime, master and develop, where develop runs parallel to the master branch. By definition, consider these two branches for source code of HEAD as:
+The central repo holds two main branches with an infinite lifetime, \codeinline{master} and \codeinline{develop}, where \codeinline{develop} runs parallel to the \codeinline{master} branch. By definition, consider these two branches for source code of \codeinline{HEAD} as:
 
 \begin{itemize}
 	\item \codeinline{origin/master} always reflects a production-ready state,
@@ -64,8 +64,8 @@ Feature branches are used to develop new features for the upcoming or a distant 
 
 \begin{git-bash}[finish new-feature branch]
     git checkout develop
-    git merge --no-ff myfeature
-    git branch -d myfeature
+    git merge --no-ff new-feature
+    git branch -d new-feature
     git push origin develop
 \end{git-bash}
 
@@ -128,9 +128,7 @@ You can consider \codeinline{hotfix} as critical \codeinline{release} branches: 
 
 This allows the development team, who operate on the \codeinline{develop} branch and below, to maintain momentum whilst an assignee prepares the production hotfix. \newline
 
-If the current production release, say version 1.2, is live with bug that require immediate attention, a \codeinline{hotfix} branch may be created from \codeinline{master}.
-
-For example, say version 1.2 is the current production release running live and causing troubles due to a severe bug. But changes on \codeinline{develop} are yet unstable. We may then branch off a \codeinline{hotfix} branch and start fixing the problem:
+If the current production release, say version 1.2, is live with bug that requires immediate attention, a \codeinline{hotfix} branch may be created from \codeinline{master}.
 
 \begin{git-bash}[switch to hotfix branch]
     git checkout -b hotfix-1.2.1 master
