@@ -1,8 +1,8 @@
 \begin{frame}
 	\frametitle{History}
-	\monocolumn{
-		\begin{tikzpicture}
-			\node[] (history-logos) {
+%	\monocolumn{
+		\begin{tikzpicture}[overlay]
+			\node[anchor=north] (history-logos) at ([yshift=-2.5cm]current page.center) {
 				\begin{tikzpicture}
 					\onslide<1->{
 						\node[] (logo-1) {\fontfamily{cmr}\selectfont\bfseries\Huge\TeX};
@@ -16,10 +16,23 @@
 					\onslide<4->{
 						\node[anchor=west] (logo-4) at ([xshift=1cm]logo-3.east) {\includegraphics[height=0.1\paperheight]{img/logos/git.pdf}};
 					}
+				%
+					\foreach \shiftTL / \shiftBR / \topleft / \bottomright [count=\slideId from 0] in {%
+						{{0mm,2mm}/{0mm,0mm}/logo-1.north west/logo-1.south east},%
+						{{0mm,2mm}/{0mm,0mm}/logo-2.north west/logo-2.south east},%
+						{{0mm,2mm}/{0mm,0mm}/logo-3.north west/logo-3.south east},%
+						{{0mm,2mm}/{0mm,0mm}/logo-4.north west/logo-4.south east}% east}%
+					}{%
+						\only<-\slideId>{%
+							\node[] {
+								\tikz[overlay]\fill[monokai-bg, opacity=.75] ([shift={(\shiftTL)}]\topleft) rectangle ([shift={(\shiftBR)}]\bottomright);
+							};
+						}
+					}
 				\end{tikzpicture}				
 			};
 		%
-			\node[anchor=north west] (history-notes) at ([shift={(0\baselineskip,0)}]history-logos.south west) {
+			\node[anchor=north west] (history-notes) at ([shift={(-1cm,0)}]history-logos.south west) {
 				\begin{tikzpicture}
 					\foreach \historydescription [count=\slideNumber from 1] in {
 						{%
@@ -54,7 +67,7 @@
 				\end{tikzpicture}
 			};
 		\end{tikzpicture}
-	}
+%	}
 %
 	\note{
 		%
