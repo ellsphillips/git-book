@@ -1,0 +1,7 @@
+Nearly every Version Control System (VCS) has some form of branching support. To ``branch'' means to create a new alternative development line within your project, diverging from the \codeinline{master}, or main, timeline, allowing you to work on features without interacting with that main line.
+
+Git's branching model is what sets it apart from other VCS tools -- it's incredibly lightweight, making branching operations nearly instantaneous and encouraging workflows that branch and merge often. \newline
+
+To really understand the way Git does branching, we need to recall how Git stores its data: not as a series of changesets or differences, but instead as a series of \emph{snapshots}.
+
+Per commit, Git stores a commit object that contains a pointer to the snapshot of the content you staged, the author's name and email address, the message that you typed, and pointers to the parent commits that directly came before this commit.
