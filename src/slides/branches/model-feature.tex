@@ -1,6 +1,11 @@
 \begin{frame}%
     \frametitle{Feature branches}%
-    \monocolumn{\resizebox{.6\paperwidth}{!}{
+    \monocolumn{
+	    \only<1>{\includegraphics{img/code/start-new-feature.pdf}}%
+	    \only<2>{\includegraphics{img/code/finish-new-feature.pdf}}%
+	}
+%
+    \only<3>{\monocolumn{\resizebox{.6\paperwidth}{!}{
     	\begin{tikzpicture}
 	    	\node[rotate=90] (git-graph-upper) {%
 	   			\begin{tikzpicture}[%
@@ -239,5 +244,5 @@
    				\strut\textcolor{monokai-yellow}{git} merge%
    			};
    		\end{tikzpicture}
-	}}
+	}}}
 \end{frame}%
