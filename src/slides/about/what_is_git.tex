@@ -1,7 +1,20 @@
 \begin{frame}
 	\frametitle{What is Git?}
 	\monocolumn{
-		Git is a system for keeping track of changes that happen across a set of files.
+		\begin{tikzpicture}
+			\node[] (git-about-logo) {%
+				\includegraphics[width=0.2\paperwidth]{img/logos/git.pdf}
+			};
+		%
+			\node[anchor=north west] at ([shift={(-2em, 2em)}]git-about-logo.south east) {%
+				\parbox{0.6\paperwidth}{%
+					\raggedright
+					A system for keeping track of changes that happen across a set of files as a series of snapshots. \newline
+					
+					Commit your data to capture the current state of your filesystem, assign references to new or modified files and link any unchanged files to the previously stored copies.
+				}
+			};
+		\end{tikzpicture}
 	}
 %
 	\note{
