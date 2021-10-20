@@ -1,0 +1,65 @@
+\definecolor{latex}{HTML}{3D6117}
+
+\newlength{\gitbarwidth}
+\setlength{\gitbarwidth}{0.5\textwidth}
+\newlength{\gitbarheight}
+\setlength{\gitbarheight}{2.5mm}
+
+\tikzstyle{gitbar} = [inner sep=0pt, outer sep=0pt, rounded corners]
+\tikzstyle{gitbar inner} = [gitbar, clip]
+\tikzstyle{gitbar wrapper} = [gitbar, fill=none, line width=.75pt]
+
+\begin{frame}
+	\frametitle{Distribution}
+	\monocolumn{
+		\only<1>{ \raggedright
+			This material is developed open source. If you're interested, put your new-found skills to the test, create a pull request and contribute! \newline
+			
+			\begin{center}
+				\begin{tikzpicture}
+					\node[scale=0.75] (git-language-bar) {
+						\begin{tikzpicture}
+							\node[] (hub) {
+								\bfseries\href{https://github.com/ellsphillips/git-book}{\raisebox{-.25\baselineskip}{\includegraphics[width=5mm]{img/logos/github-white.pdf}}\,/ellsphillips/git-book}
+							};
+						%
+							\node[gitbar inner, anchor = north west] (languages) at (hub.south west){%
+								\foreach \langclr / \langwd [count=\position from 0] in {
+									{latex/1.0}%
+								} {%
+									\tikz\node[draw, thick, sharp corners]{%
+										\color{\langclr}\rule{\langwd\gitbarwidth}{\gitbarheight}%
+									};%
+								}
+							};
+						%
+							\node[gitbar wrapper, fit=(languages), draw] (gitbar) {};
+						%
+							\node[fill=none, anchor = north west] at (languages.south west) {
+								\parbox{0.25\textwidth}{
+									\foreach \lang / \langclr in {
+										{TeX/latex}%
+									} {%
+										\tikz[]\fill[\langclr] (0, 0) circle (1mm) node[anchor=west, text=black, text depth=0pt] (text) {\color{monokai-fg}\lang};\quad%
+									}
+								}
+							};
+						\end{tikzpicture}
+					};
+				\end{tikzpicture}
+			\end{center}
+		}
+	%
+		\only<2>{%
+			\parbox{0.6\paperwidth}{
+				You're welcome to retain a copy and share this material with anyone who may benefit. \newline
+				
+				Please \resizebox{!}{.5\baselineskip}{\tikz\node[star,fill=monokai-yellow,rounded corners=.75pt,star point ratio=2]{};} this repository if you have found this material useful and to follow development!
+			}
+		}
+	}
+	
+	\note {
+		%
+	}
+\end{frame}
