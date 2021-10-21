@@ -96,6 +96,89 @@ If you find yourself working on a branch and need to move your current untracked
 You can achieve the same effect with \codeinline{git checkout -b new-branch}, but \codeinline{checkout} does more than just switching branches, so \codeinline{switch} was created for specificity.
 
 
+%\vspace{10\baselineskip}
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+		\def\gitstagesep{3cm}
+	%
+		\foreach \stage/\stagecolour [count=\stageNumber from 0] in {%
+			untracked/monokai-orange,
+			unmodified/monokai-grey-100,
+			modified/monokai-yellow,
+			staged/monokai-green%
+		}{%
+			\node[%
+				inner sep = 2pt,
+				baseline = (stage.base),
+				font = \small,
+				xshift = \stageNumber*\gitstagesep,
+			] (\stage) {%
+				\ttfamily\bfseries\color{monokai-bg}%
+				\strut\stage
+			};
+		%
+			\begin{pgfonlayer}{background}%
+				\fill[%
+					\stagecolour,
+					rounded corners = 1pt,
+				]%
+					([shift={(-1.75pt,0pt)}]\stage.north west)%
+					rectangle%
+					([shift={(2.25pt,0pt)}]\stage.south east);%
+			%
+				\draw[%
+					draw=monokai-grey-400,
+					ultra thin,
+				]%
+					(\stage) --	++(0, -3.5\gitstagesep);
+			\end{pgfonlayer}%
+		}
+	%
+		\foreach \stagefrom/\stageto/\stagecolour/\stagedesc [count=\stagecount from 1] in {%
+			untracked/staged/monokai-orange/{Add the file},
+			unmodified/modified/monokai-grey-100/{Edit the file},
+			unmodified/untracked/monokai-grey-100/{Remove the file},
+			modified/staged/monokai-yellow/{Stage the file},
+			staged/unmodified/monokai-green/{Commit}%
+		}{%
+			\draw[%
+				\stagecolour,
+				->,
+				>=stealth,
+				thick,
+			]%
+				([yshift=-\stagecount*.5\gitstagesep]\stagefrom.south)%
+				--%
+				([yshift=-\stagecount*.5\gitstagesep]\stageto.south)
+				node[%
+					midway,
+					inner sep = 2pt,
+					baseline = (stagelabel.base),
+					font = \tiny,
+					fill=\stagecolour,
+					rounded corners = 1pt,
+				] (stagelabel) {%
+					\ttfamily\bfseries\color{monokai-bg}%
+					\stagedesc%
+				};
+		}
+	\end{tikzpicture}
+	\caption[Recording changes to the repository]{%
+		All possible movements of recording changes within a repository. Each file in a working directory can be either \emph{tracked} or \emph{untracked}. Tracked files are those included in the last snapshot (unmodified, modified or staged), and untracked files are all other files in your working directory that were not in the last snapshot or in the staging area.
+	}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
