@@ -1,8 +1,104 @@
 \chapter{Testing}
 
-\section{Example}
+{ \Large\itshape
+	\noindent Demonstrative materials.
+}
 
-\noindent Demonstrative materials.
+\section{Code blocks}
 
 %\input{src/book/99-testing/_file}
+
+\newtcbinputlisting[use counter=monokaicode]{\monokaicodeinput}[4][]{%
+	enhanced,
+	noparskip,
+	breakable,
+	colback=code-background,
+	opacitybacktitle=.2,%
+	fonttitle=\bfseries,
+	colupper=white,
+	enlarge top by=\baselineskip,
+	enlarge bottom by=\baselineskip,
+	before upper={%
+		\lstdefinestyle{#2-methods}{%
+			language=monokai-#2,
+			keywords=[5]{#4},
+			keywordstyle=[5]\color{monokai-green},
+			#1,
+		}%
+	},
+	bottomsep at break=10pt,
+	topsep at break=20pt,
+	listing only,
+	listing options={%
+		%
+	},
+	listing style = #2-methods,
+	after upper={},
+	top=-1mm,
+	left=10mm,
+	bottom=0mm,
+	frame hidden,
+	arc=4pt,
+	outer arc=0pt,
+	boxrule=0pt,
+	frame code={%
+%		\draw[red,line width=4mm,rounded corners] (frame.north west) rectangle (frame.south east);
+	},
+	listing file = {#3},
+	underlay unbroken and first={%
+		\path[
+			draw=language-#2,
+			line width = 1mm,
+			rounded corners=\codeborderradius
+		]
+		([shift={(.33\codeborderwidth, .33\codeborderwidth)}]frame.south west)
+			-- ([shift={(.33\codeborderwidth, -.33\codeborderwidth)}]frame.north west)
+			-- ([shift={(-.33\codeborderwidth, -.33\codeborderwidth)}]frame.north east)
+			-- ([shift={(-.33\codeborderwidth, .33\codeborderwidth)}]frame.south east)
+			-- cycle;
+	},
+	overlay first={%
+		\path[draw=language-#2, line width = 1mm]
+			([shift={(.33\codeborderwidth, .33\codeborderwidth)}]frame.south west)
+			[rounded corners=\codeborderradius]-- ([shift={(.33\codeborderwidth, -.33\codeborderwidth)}]frame.north west)
+			[rounded corners=\codeborderradius]-- ([shift={(-.33\codeborderwidth, -.33\codeborderwidth)}]frame.north east)
+			[sharp corners]-- ([shift={(-.33\codeborderwidth, .33\codeborderwidth)}]frame.south east)
+			[sharp corners]-- cycle;
+	},
+	overlay last={%
+		\path[draw=language-#2, line width = 1mm]
+			([shift={(.33\codeborderwidth, .33\codeborderwidth)}]frame.south west)
+			[sharp corners]-- ([shift={(.33\codeborderwidth, -.33\codeborderwidth)}]frame.north west)
+			[sharp corners]-- ([shift={(-.33\codeborderwidth, -.33\codeborderwidth)}]frame.north east)
+			[rounded corners=\codeborderradius]-- ([shift={(-.33\codeborderwidth, .33\codeborderwidth)}]frame.south east)
+			[rounded corners=\codeborderradius]-- cycle;
+	},
+}
+
+%\null
+
+\noindent Syntactic sugar for relative file paths:
+
+\monokaicodeinput{typescript}{code/test-ts-syntax.ts}{%
+	fn,
+}
+
+\noindent Inspecting particular lines within a code file:
+
+\monokaicodeinput[%
+	linerange={2-4},
+	firstnumber=2,
+]{typescript}{code/test-ts-syntax.ts}{%
+	fn,
+}
+
+
+
+
+
+
+
+
+
+
 
