@@ -23,6 +23,7 @@
 
 \usepackage{%
 	lib/colour/monokai-theme,
+	lib/colour/languages,
 }
 	
 \usepackage{%
